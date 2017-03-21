@@ -16,6 +16,37 @@
     margin-right: 5px;
 }
 
-label.panel-block {
-    cursor: auto;
+label.panel-block.sighting {
+    cursor: default;
+}
+
+.animal-edit-input {
+    border: none;
+    outline: none;
+    background-color: transparent;
+    border-bottom: 2px solid transparent;
+    transition: border-bottom 0.2s ease-in;
+    padding: 0;
+}
+
+.animal-edit-input:focus {
+    border-bottom: 2px solid #00D1B2;
+}
+
+.animal-edit-input.subtitle {
+    display: block;
+    margin-top: 5px;
+    line-height: 1.5em;
+}
+
+.sighting .animal-edit-input {
+    font-size: 16px;
+    margin-left: 23px;
+    width: 90%;
+    line-height: 1.5em;
+    padding: 1px;
+}
+
+.sighting:not(.editing) {
+    padding: 10px;
 }
