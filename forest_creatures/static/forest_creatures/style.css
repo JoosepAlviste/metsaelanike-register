@@ -1,0 +1,21 @@
+.animal-title:hover .edit-icon, .sighting:hover .sighting-edit-icon {
+    visibility: visible;
+}
+
+.edit-icon, .sighting-edit-icon {
+    width: 24px;
+    height: 24px;
+    fill: #2e3035;
+    vertical-align: middle;
+    visibility: hidden;
+}
+
+.sighting-edit-icon {
+    width: 18px;
+    height: 18px;
+    margin-right: 5px;
+}
+
+label.panel-block {
+    cursor: auto;
+}
