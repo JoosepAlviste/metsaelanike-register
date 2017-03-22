@@ -1,7 +1,7 @@
 # Serializers define the API representation.
 from rest_framework import serializers
 
-from forest_creatures.models import Animal, AnimalSighting
+from forest_creatures.models import Animal, AnimalSighting, Species
 
 
 class AnimalSightingSerializer(serializers.ModelSerializer):
@@ -10,8 +10,15 @@ class AnimalSightingSerializer(serializers.ModelSerializer):
         fields = ('id', 'location', 'time')
 
 
+class SpeciesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Species
+        fields = ('id', 'name')
+
+
 class AnimalSerializer(serializers.ModelSerializer):
     latest_sighting = AnimalSightingSerializer(read_only=True)
+    species = SpeciesSerializer(read_only=True)
 
     class Meta:
         model = Animal

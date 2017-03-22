@@ -1,10 +1,18 @@
 from django.db import models
 
 
+class Species(models.Model):
+
+    name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
+
+
 class Animal(models.Model):
 
     name = models.CharField(max_length=255)
-    species = models.TextField()
+    species = models.ForeignKey(Species, related_name='animals', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
@@ -25,4 +33,3 @@ class AnimalSighting(models.Model):
 
     def __str__(self):
         return 'Saw ' + self.animal.name + ' at ' + self.location + ' at ' + str(self.time)
-
