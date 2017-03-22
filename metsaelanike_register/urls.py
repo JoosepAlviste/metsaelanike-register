@@ -21,4 +21,5 @@ urlpatterns = [
     url(r'^animals/', include('forest_creatures.urls')),
     url(r'^api/animals/', include('forest_creatures.api.urls')),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^api/locations/', include('locations.urls')),
 ]

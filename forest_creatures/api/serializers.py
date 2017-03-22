@@ -2,9 +2,12 @@
 from rest_framework import serializers
 
 from forest_creatures.models import Animal, AnimalSighting, Species
+from locations.serializers import LocationSerializer
 
 
 class AnimalSightingSerializer(serializers.ModelSerializer):
+    location = LocationSerializer(read_only=True)
+
     class Meta:
         model = AnimalSighting
         fields = ('id', 'location', 'time')

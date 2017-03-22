@@ -25,11 +25,11 @@ class Animal(models.Model):
 class AnimalSighting(models.Model):
 
     animal = models.ForeignKey(Animal, related_name='sightings', on_delete=models.CASCADE)
-    location = models.TextField()
+    location = models.ForeignKey('locations.Location', related_name='sightings', on_delete=models.CASCADE)
     time = models.DateTimeField()
 
     class Meta:
         ordering = ('-time',)
 
     def __str__(self):
-        return 'Saw ' + self.animal.name + ' at ' + self.location + ' at ' + str(self.time)
+        return 'Saw ' + self.animal.name + ' at ' + self.location.name + ' at ' + self.time.strftime('%-H:%M %d/%m/%Y')

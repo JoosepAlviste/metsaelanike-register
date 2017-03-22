@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'forest_creatures',
     'rest_framework',
+    'locations',
 ]
 
 MIDDLEWARE_CLASSES = [
