@@ -32,4 +32,4 @@ class AnimalSighting(models.Model):
         ordering = ('-time',)
 
     def __str__(self):
-        return 'Saw ' + self.animal.name + ' at ' + self.location.name + ' at ' + self.time.strftime('%-H:%M %d/%m/%Y')
+        return 'Saw ' + self.animal.name + ' at ' + self.location.name + ' at ' + self.time.strftime('%-H:%M %d.%m.%Y')

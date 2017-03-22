@@ -7,7 +7,7 @@ from locations.serializers import LocationSerializer
 
 class AnimalSightingSerializer(serializers.ModelSerializer):
     location = LocationSerializer(read_only=True)
-    time = serializers.DateTimeField(format='%-H:%M %d/%m/%Y')
+    time = serializers.DateTimeField(format='%-H:%M %d.%m.%Y')
 
     class Meta:
         model = AnimalSighting
