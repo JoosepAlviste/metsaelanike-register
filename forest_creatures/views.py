@@ -18,3 +18,7 @@ def show(request, animal_id):
         raise Http404("Animal does not exist")
 
     return render(request, 'forest_creatures/show.html', {'animal': animal})
+
+
+def species(request, name):
+    return render(request, 'forest_creatures/species.html')

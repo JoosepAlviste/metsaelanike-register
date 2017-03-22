@@ -50,3 +50,26 @@ label.panel-block.sighting {
 .sighting:not(.editing) {
     padding: 10px;
 }
+
+/*******************************\
+    Species and animals
+/*******************************/
+
+.animals-column {
+    margin-top: 15px;
+}
+
+.panel-block.is-active {
+    color: #00d1b2;
+}
+
+.link {
+    display: block;
+    color: #4a4a4a;
+    transition: color 0.1s ease-in-out;
+}
+
+.link:hover {
+    cursor: pointer;
+    color: #00d1b2;
+}
