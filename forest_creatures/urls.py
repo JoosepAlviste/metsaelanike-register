@@ -5,5 +5,5 @@ from . import views
 urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^(?P<animal_id>[0-9]+)/$', views.show, name='show'),
-    url(r'^(species)/$', views.species, name='species')
+    url(r'^species/$', views.species, name='species')
 ]

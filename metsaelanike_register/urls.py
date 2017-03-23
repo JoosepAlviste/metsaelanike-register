@@ -16,7 +16,10 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 
+from forest_creatures import views
+
 urlpatterns = [
+    url(r'^$', views.species, name='species'),
     url(r'^admin/', admin.site.urls),
     url(r'^animals/', include('forest_creatures.urls')),
     url(r'^api/animals/', include('forest_creatures.api.urls')),

@@ -1,68 +1,47 @@
-{% load static %}
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.0/css/bulma.css">
-<link rel="stylesheet" href="{% static 'forest_creatures/style.css' %}">
+{% extends 'forest_creatures/base.html' %}
 
-<section class="section">
-    <div class="container columns">
-        <div class="column is-one-third is-offset-1">
-        <h1 class="title is-1 species-title">Forest creatures</h1>
+{% block content %}
 
-            <nav class="panel">
-                <p class="panel-heading">
-                    Species
-                </p>
+    {% load static %}
 
-                <a class="panel-block" href="#rebased">Rebane</a>
-                <a class="panel-block is-active" href="#lovid">Lõvi</a>
-                <a class="panel-block" href="#hundid">Hunt</a>
-                <a class="panel-block" href="#karud">Karu</a>
-            </nav>
+    <section class="section" ng-controller="HomeController">
+        <div class="container columns">
+            <div class="column is-one-third is-offset-1">
+                <h1 class="title is-1 species-title">Forest creatures</h1>
+
+                <nav class="panel">
+                    <p class="panel-heading">
+                        Species
+                    </p>
+
+                    <a class="panel-block" ng-repeat="(index, oneSpecies) in species" ng-click="selectSpecies(index)">
+                        {$ oneSpecies.name $}
+                    </a>
+                </nav>
+            </div>
+            <div class="column is-one-third is-offset-2 animals-column">
+                <div ng-show="activeSpecies !== null">
+                    <h2 class="title is-3">All {$ activeSpecies.name $} animals</h2>
+                    <hr>
+                    <article class="media" ng-repeat="animal in activeSpeciesAnimals">
+                        <div class="media-content">
+                            <div class="content">
+                                <a class="link" ng-href="/animals/{$ animal.id $}">
+                                    <b>{$ animal.name $}</b>
+                                </a>
+                                <p ng-show="animal.latest_sighting !== null">
+                                    {$ animal.latest_sighting.time $} at <a ng-href="/api/locations/{$ animal.latest_sighting.location.id $}">
+                                        {$ animal.latest_sighting.location.name $}
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
         </div>
-        <div class="column is-one-third is-offset-2 animals-column">
-            <h2 class="title is-3">All Lõvi animals</h2>
-            <hr>
-            <article class="media">
-                <div class="media-content">
-                    <div class="content">
-                        <a class="link" href="show.html">
-                            <b>Mati Lõvine</b>
-                            <p>20.03.2017 at Tartumaa</p>
-                        </a>
-                    </div>
-                </div>
-            </article>
-            <article class="media">
-                <div class="media-content">
-                    <div class="content">
-                        <a class="link" href="show.html">
-                            <b>Kati Lõvine</b>
-                            <br>
-                            <p>20.03.2017 at Tartumaa</p>
-                        </a>
-                    </div>
-                </div>
-            </article>
-            <article class="media">
-                <div class="media-content">
-                    <div class="content">
-                        <a class="link" href="show.html">
-                            <b>Kelli Lõvine</b>
-                            <br>
-                            <p>20.03.2017 at Tartumaa</p>
-                        </a>
-                    </div>
-                </div>
-            </article>
-            <article class="media">
-                <div class="media-content">
-                    <div class="content">
-                        <a class="link" href="show.html">
-                            <b>Liisu Lõvine</b>
-                            <br>
-                            <p>20.03.2017 at Tartumaa</p>
-                        </a>
-                    </div>
-                </div>
-            </article>
-    </div>
-</section>
+    </section>
+
+    <script src="{% static 'forest_creatures/home.js' %}"></script>
+
+{% endblock %}

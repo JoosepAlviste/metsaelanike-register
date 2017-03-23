@@ -20,5 +20,5 @@ def show(request, animal_id):
     return render(request, 'forest_creatures/show.html', {'animal': animal})
 
 
-def species(request, name):
+def species(request):
     return render(request, 'forest_creatures/species.html')
