@@ -32,8 +32,11 @@ class AnimalList(generics.ListAPIView):
 
 class SightingList(generics.ListAPIView):
 
-    queryset = AnimalSighting.objects.all()
     serializer_class = AnimalSightingSerializer
+
+    def get_queryset(self):
+        animal_id = self.kwargs['animal_id']
+        return AnimalSighting.objects.filter(animal_id=animal_id)
 
 
 class AnimalListBySpecies(generics.ListAPIView):
