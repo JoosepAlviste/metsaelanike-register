@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 
 from forest_creatures.models import Animal
+from forest_creatures.models import Species
 
 
 def index(request):
@@ -20,16 +21,21 @@ def show(request, animal_id):
     return render(request, 'forest_creatures/show.html', {'animal': animal})
 
 
-def species(request):
-    return render(request, 'forest_creatures/species.html')
-
-
 def animals(request):
     return render(request, 'forest_creatures/animals.html')
 
 
-def all_species(request):
+def species(request):
     return render(request, 'forest_creatures/all_species.html')
+
+
+def one_species(request, species_id):
+    try:
+        specie = Species.objects.get(pk=species_id)
+    except Species.DoesNotExist:
+        raise Http404("Species does not exist")
+
+    return render(request, 'forest_creatures/one_species.html', {'species_id': specie.id, 'species_name': specie.name})
 
 
 def locations(request):

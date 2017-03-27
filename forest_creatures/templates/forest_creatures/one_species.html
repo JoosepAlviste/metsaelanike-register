@@ -1,18 +1,18 @@
-{% extends "forest_creatures/index.html" %}
-{% block tab-content %}
+{% extends 'forest_creatures/base.html' %}
+
+{% block content %}
 
     {% load static %}
-
-    <section class="section" ng-controller="AnimalListController">
-        <div class="container columns-container">
+    <section class="section" ng-controller="OneSpeciesController">
+        <div class="container columns">
             <div class="column is-half is-offset-one-quarter">
 
                 <nav class="panel">
                     <p class="panel-heading">
-                        Animals
+                        All {{ species_name }} animals
                     </p>
 
-                    <div class="panel-block" ng-repeat="(index, animal) in animals" ng-click="selectAnimal(index)">
+                    <div class="panel-block" ng-repeat="animal in speciesAnimals" ng-click="selectAnimal(index)">
                         <a class="link" ng-href="/animals/{$ animal.id $}">
                             <b>{$ animal.name $}&nbsp;</b>
                         </a>
@@ -23,8 +23,15 @@
                         </p>
                     </div>
                 </nav>
+                
             </div>
         </div>
     </section>
-    <script src="{% static 'forest_creatures/animals.js' %}"></script>
+    <script>
+        window.species_id = {{ species_id }};
+        window.species_name = {{ species_name }};
+
+    </script>
+    <script src="{% static 'forest_creatures/home.js' %}"></script>
+
 {% endblock %}

@@ -5,14 +5,15 @@
 
     <div class="tabs is-centered">
         <ul>
-            <li class="is-active"><a href="/animals/animals">Animals</a></li>
-            <li><a href="/animals/all_species">Species</a></li>
+            <li><a href="/animals/animals">Animals</a></li>
+            <li><a href="/animals/species">Species</a></li>
             <li><a href="/animals/locations">Locations</a></li>
             <li><a href="/animals/sightings">Sightings</a></li>
             <li><a href="/animals/search">Search</a></li>
         </ul>
     </div>
 
+    <script src="{% static 'forest_creatures/home.js' %}"></script>
     {% block tab-content %}
     {% endblock %}
 

@@ -3,7 +3,7 @@
 
     {% load static %}
 
-    <section class="section">
+    <section class="section" ng-controller="SpeciesController">
         <div class="container columns-container">
             <div class="column is-half is-offset-one-quarter">
 
@@ -12,11 +12,12 @@
                         Species
                     </p>
 
-                    <a class="panel-block" ng-repeat="(index, oneSpecies) in species" ng-click="selectSpecies(index)">
+                    <a class="panel-block" ng-repeat="(index, oneSpecies) in species" ng-click="selectSpecies(index)" ng-href="/animals/species/{$ oneSpecies.id $}">
                         {$ oneSpecies.name $}
                     </a>
                 </nav>
             </div>
         </div>
     </section>
+    <script src="{% static 'forest_creatures/species.js' %}"></script>
 {% endblock %}

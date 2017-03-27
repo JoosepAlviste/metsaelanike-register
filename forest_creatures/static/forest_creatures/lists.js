@@ -3,21 +3,16 @@ var app = angular.module('animalsApp', []).config(function($interpolateProvider)
     $interpolateProvider.endSymbol('$}');
 });
 
-app.controller('OneSpeciesController', function ($scope, $http) {
+app.controller('TabController', function ($scope, $http) {
 
-    $scope.species = null;
-    $scope.activeAnimal = null;
-    $scope.speciesAnimals = [];
+    $scope.activeTab = null;
 
     $scope.init = function () {
-        console.log(window.species_id);
-
         $http({
             method: 'GET',
-            url: '/api/animals/species/' + window.species_id + '/animals'
+            url: '/api/animals/species'
         }).then(function (data) {
-            console.log(data.data);
-            $scope.speciesAnimals = data.data;
+            $scope.species = data.data;
         });
     };
 
