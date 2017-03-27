@@ -1,3 +1,7 @@
+body {
+    min-height: 100vh;
+}
+
 .animal-title:hover .edit-icon, .sighting:hover .sighting-edit-icon {
     visibility: visible;
 }
@@ -73,4 +77,44 @@ label.panel-block.sighting {
 .link:hover {
     cursor: pointer;
     color: #00d1b2;
+}
+
+.columns-container {
+    margin: 0 auto;
+}
+
+.full-height-section {
+    min-height: 100vh;
+    margin-top: -65px;
+}
+
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-container {
+    padding: 40px 50px;
+    border-radius: 10px;
+    width: 33%;
+    transition: all 225ms ease-in;
+    transition-delay: 100ms;
+    display: flex;
+    justify-content: center;
+}
+
+.search-input {
+    line-height: 30px;
+    font-size: 28px;
+    padding: 10px 15px;
+    width: calc(100% - 50px);
+
+    border: none;
+    border-bottom: 2px solid #00D1B2;
+    color: #a9a9a9;
+}
+
+.search-input:focus {
+    outline: none;
 }

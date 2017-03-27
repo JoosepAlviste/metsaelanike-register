@@ -7,7 +7,7 @@ from forest_creatures.models import Animal
 
 def index(request):
 
-    return HttpResponse('Hello World!')
+    return render(request, 'forest_creatures/index.html')
 
 
 def show(request, animal_id):
@@ -22,3 +22,23 @@ def show(request, animal_id):
 
 def species(request):
     return render(request, 'forest_creatures/species.html')
+
+
+def animals(request):
+    return render(request, 'forest_creatures/animals.html')
+
+
+def all_species(request):
+    return render(request, 'forest_creatures/all_species.html')
+
+
+def locations(request):
+    return render(request, 'forest_creatures/locations.html')
+
+
+def sightings(request):
+    return render(request, 'forest_creatures/sightings.html')
+
+
+def search(request):
+    return render(request, 'forest_creatures/search.html')

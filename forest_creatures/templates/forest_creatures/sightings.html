@@ -1,0 +1,22 @@
+{% extends "forest_creatures/index.html" %}
+{% block tab-content %}
+
+    {% load static %}
+
+    <section class="section">
+        <div class="container columns-container">
+            <div class="column is-half is-offset-one-quarter">
+
+                <nav class="panel">
+                    <p class="panel-heading">
+                        Sightings
+                    </p>
+
+                    <a class="panel-block" ng-repeat="(index, sighting) in sightings" ng-click="selectSighting(index)">
+                        {$ sighting.name $}
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </section>
+{% endblock %}
