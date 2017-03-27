@@ -15,7 +15,6 @@ app.controller('HomeController', function ($scope, $http) {
             url: '/api/animals/species'
         }).then(function (data) {
             $scope.species = data.data;
-            console.log($scope.species);
         });
     };
 
@@ -26,7 +25,6 @@ app.controller('HomeController', function ($scope, $http) {
             url: '/api/animals/species/' + $scope.activeSpecies.id + '/animals'
         }).then(function (data) {
             $scope.activeSpeciesAnimals = data.data;
-            console.log(data.data);
         });
     };
 

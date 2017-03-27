@@ -7,3 +7,7 @@ class Location(models.Model):
 
     def __str__(self):
         return self.name
+
+    @property
+    def latest_sighting(self):
+        return self.sightings.first()

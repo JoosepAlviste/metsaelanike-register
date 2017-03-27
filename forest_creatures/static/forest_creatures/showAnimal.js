@@ -6,11 +6,12 @@ var app = angular.module('animalsApp', []).config(function($interpolateProvider)
 app.controller('ShowAnimalController', function ($scope, $http) {
 
     $scope.sightings = [];
+    $scope.animal = window.animal;
 
     $scope.init = function () {
         $http({
             method: 'GET',
-            url: '/api/animals/' + window.animal_id + '/sightings'
+            url: '/api/animals/' + $scope.animal.id + '/sightings'
         }).then(function (data) {
             $scope.sightings = data.data;
         });

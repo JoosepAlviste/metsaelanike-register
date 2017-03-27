@@ -7,7 +7,7 @@
     <section class="section" ng-controller="ShowAnimalController">
         <div class="container">
 
-            <h1 class="title is-1 animal-title">{{ animal.name }}
+            <h1 class="title is-1 animal-title">{$ animal.name $}
                 <a class="edit-btn" href="edit.html">
                     <svg class="edit-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
@@ -15,7 +15,7 @@
                     </svg>
                 </a>
             </h1>
-            <h5 class="subtitle is-5">{{ animal.species }}</h5>
+            <h5 class="subtitle is-5">{$ animal.species.name $}</h5>
             <hr>
 
             <nav class="panel">
@@ -73,8 +73,14 @@
     </section>
 
     <script>
-        var animal_id = {{ animal.id }};
-        window.animal_id = animal_id;
+        window.animal = {
+            id: {{ animal.id }},
+            name: '{{ animal.name }}',
+            species: {
+                id: {{ animal.species_id }},
+                name: '{{ animal.species.name }}'
+            }
+        };
     </script>
 
     <script src="{% static 'forest_creatures/showAnimal.js' %}"></script>

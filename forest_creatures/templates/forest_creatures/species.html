@@ -14,7 +14,7 @@
                         Species
                     </p>
 
-                    <a class="panel-block" ng-repeat="(index, oneSpecies) in species" ng-click="selectSpecies(index)">
+                    <a class="panel-block ng-class: activeSpecies.id === oneSpecies.id ? 'is-active' : '';" ng-repeat="(index, oneSpecies) in species" ng-click="selectSpecies(index)">
                         {$ oneSpecies.name $}
                     </a>
                 </nav>
