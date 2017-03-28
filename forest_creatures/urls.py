@@ -11,4 +11,5 @@ urlpatterns = [
     url(r'^templates/locations/$', views.locations_template, name='locations'),
     url(r'^templates/one_location/$', views.one_location_template, name='one_location'),
     url(r'^templates/search/$', views.search_template, name='search_template'),
+    url(r'^templates/edit/$', views.edit_template, name='edit_template'),
 ]

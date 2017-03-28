@@ -1,0 +1,48 @@
+<section class="section">
+    <div class="container columns-container">
+        <div class="column is-half is-offset-one-quarter">
+
+            <h1 class="title is-1 animal-title">Edit {$ animal.name $}</h1>
+            <div class="form-container">
+                <form id="edit-form">
+                    <div class="field">
+                        <label class="label">Name</label>
+                        <p class="control">
+                            <input class="input" type="text" value="{$ animal.name $}" ng-model="animal.name">
+                        </p>
+                    </div>
+                    <div class="field">
+                        <label class="label">Species</label>
+                        <p class="control">
+                            <input class="input" type="text" value="{$ animal.species.name $}" ng-model="animal.species.name">
+                        </p>
+                    </div>
+                </form>
+            </div>
+            <div class="form-container sightings-container">
+                <hr>
+                <div class="sighting" ng-repeat="(index, sighting) in sightings">
+                    <h3 class="title is-4">Sighting #{$ index $}</h3>
+                    <form>
+                        <div class="field">
+                            <label class="label">Location</label>
+                            <p class="control">
+                                <input class="input" type="text" value="{$ sighting.location.name $}" ng-model="sightings[index].location.name">
+                            </p>
+                        </div>
+                        <div class="field">
+                            <label class="label">Time</label>
+                            <p class="control">
+                                <input class="input" type="text" value="{$ sighting.time $}" ng-model="sightings[index].time">
+                            </p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="form-container submit-container">
+                <button type="submit" class="button is-primary" ng-click="saveAnimal()">Save</button>
+                <button type="button" class="button is-danger" ng-click="deleteAnimal()">Delete</button>
+            </div>
+        </div>
+    </div>
+</section>

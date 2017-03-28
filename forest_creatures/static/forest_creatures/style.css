@@ -131,3 +131,7 @@ label.panel-block.sighting {
 .search-input:focus {
     outline: none;
 }
+
+.sightings-container, .submit-container {
+    margin-top: 30px;
+}

@@ -37,3 +37,7 @@ def animals_template(request):
 
 def search_template(request):
     return render(request, 'forest_creatures/search.html')
+
+
+def edit_template(request):
+    return render(request, 'forest_creatures/edit.html')

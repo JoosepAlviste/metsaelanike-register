@@ -18,6 +18,10 @@ var app = angular.module('animalsApp', ['ngRoute'])
                 templateUrl: '/animals/templates/one_animal',
                 controller: 'OneAnimalController'
             })
+            .when('/animals/:id/edit', {
+                templateUrl: '/animals/templates/edit',
+                controller: 'AnimalEditController'
+            })
             .when('/species', {
                 templateUrl: '/animals/templates/species/',
                 controller: 'SpeciesListController',
@@ -85,14 +89,12 @@ app.controller('OneAnimalController', function ($scope, $http, $routeParams) {
             method: 'GET',
             url: '/api/animals/' + $routeParams.id
         }).then(function (data) {
-            console.log(data.data);
             $scope.animal = data.data;
         });
          $http({
             method: 'GET',
             url: '/api/animals/' + $routeParams.id + '/sightings'
         }).then(function (data) {
-            console.log(data.data);
             $scope.sightings = data.data;
         });
     };
@@ -180,7 +182,6 @@ app.controller('OneLocationController', function ($scope, $http, $routeParams) {
             method: 'GET',
             url: '/api/locations/' + $routeParams.id
         }).then(function (data) {
-            console.log(data.data);
             $scope.location = data.data;
             $scope.locationSightings = data.data.sightings;
         });
@@ -191,5 +192,37 @@ app.controller('OneLocationController', function ($scope, $http, $routeParams) {
 
 
 app.controller('SearchController', function ($scope, $http) {
+
+});
+
+app.controller('AnimalEditController', function($scope, $http, $routeParams) {
+
+    $scope.animal = null;
+    $scope.sightings = [];
+
+    $scope.init = function () {
+        $http({
+            method: 'GET',
+            url: '/api/animals/' + $routeParams.id
+        }).then(function (data) {
+            $scope.animal = data.data;
+        });
+         $http({
+            method: 'GET',
+            url: '/api/animals/' + $routeParams.id + '/sightings'
+        }).then(function (data) {
+            $scope.sightings = data.data;
+        });
+    };
+
+    $scope.saveAnimal = function () {
+
+    };
+
+    $scope.deleteAnimal = function () {
+
+    };
+
+    $scope.init();
 
 });
