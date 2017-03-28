@@ -21,14 +21,6 @@ def show(request, animal_id):
     return render(request, 'forest_creatures/show.html', {'animal': animal})
 
 
-def animals(request):
-    return render(request, 'forest_creatures/animals.html')
-
-
-def species(request):
-    return render(request, 'forest_creatures/all_species.html')
-
-
 def one_species(request, species_id):
     try:
         specie = Species.objects.get(pk=species_id)
@@ -38,13 +30,17 @@ def one_species(request, species_id):
     return render(request, 'forest_creatures/one_species.html', {'species_id': specie.id, 'species_name': specie.name})
 
 
-def locations(request):
+def species_list_template(request):
+    return render(request, 'forest_creatures/species_list.html')
+
+
+def locations_template(request):
     return render(request, 'forest_creatures/locations.html')
 
 
-def sightings(request):
-    return render(request, 'forest_creatures/sightings.html')
+def animals_template(request):
+    return render(request, 'forest_creatures/animals.html')
 
 
-def search(request):
+def search_template(request):
     return render(request, 'forest_creatures/search.html')

@@ -14,12 +14,12 @@ class Animal(models.Model):
     name = models.CharField(max_length=255)
     species = models.ForeignKey(Species, related_name='animals', on_delete=models.CASCADE)
 
-    def __str__(self):
-        return self.name
-
     @property
     def latest_sighting(self):
         return self.sightings.first()
+
+    def __str__(self):
+        return self.name
 
 
 class AnimalSighting(models.Model):

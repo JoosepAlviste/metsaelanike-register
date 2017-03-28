@@ -9,9 +9,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.0/css/bulma.css">
     <link rel="stylesheet" href="{% static 'forest_creatures/style.css' %}">
 
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.3/angular.min.js"></script>
+    <script src="{% static 'forest_creatures/lib/angular.js' %}"></script>
+    <script src="{% static 'forest_creatures/lib/angular-route.min.js' %}"></script>
 </head>
-<body ng-app="animalsApp">
+<body>
 
 {% block content %}{% endblock %}
 

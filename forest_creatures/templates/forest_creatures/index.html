@@ -1,20 +1,32 @@
 {% extends "forest_creatures/base.html" %}
+
 {% block content %}
 
     {% load static %}
 
-    <div class="tabs is-centered">
-        <ul>
-            <li><a href="/animals/animals">Animals</a></li>
-            <li><a href="/animals/species">Species</a></li>
-            <li><a href="/animals/locations">Locations</a></li>
-            <li><a href="/animals/sightings">Sightings</a></li>
-            <li><a href="/animals/search">Search</a></li>
-        </ul>
-    </div>
+    <div ng-app="animalsApp" ng-controller="AppController">
 
-    <script src="{% static 'forest_creatures/home.js' %}"></script>
-    {% block tab-content %}
-    {% endblock %}
+        <div class="tabs is-centered">
+            <ul>
+                <li ng-class="{'is-active': $route.current.activeLink == 'animals'}">
+                    <a href="#/animals">Animals</a>
+                </li>
+                <li ng-class="{'is-active': $route.current.activeLink == 'species'}">
+                    <a href="#/species">Species</a>
+                </li>
+                <li ng-class="{'is-active': $route.current.activeLink == 'locations'}">
+                    <a href="#/locations">Locations</a>
+                </li>
+                <li ng-class="{'is-active': $route.current.activeLink == 'search'}">
+                    <a href="#/search">Search</a>
+                </li>
+            </ul>
+        </div>
+
+        <div ng-view></div>
+
+        <script src="{% static 'forest_creatures/app.js' %}"></script>
+
+    </div>
 
 {% endblock %}

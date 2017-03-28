@@ -4,11 +4,14 @@
 
             <nav class="panel">
                 <p class="panel-heading">
-                    Locations
+                    Species
                 </p>
 
-                <a class="panel-block" ng-repeat="(index, location) in locations" ng-click="selectLocation(index)">
-                    {$ location.name $}
+                <a class="panel-block"
+                   ng-repeat="(index, oneSpecies) in species"
+                   ng-click="selectSpecies(index)"
+                   ng-href="/animals/species/{$ oneSpecies.id $}">
+                    {$ oneSpecies.name $}
                 </a>
             </nav>
         </div>

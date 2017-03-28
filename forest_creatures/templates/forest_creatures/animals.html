@@ -1,30 +1,23 @@
-{% extends "forest_creatures/index.html" %}
-{% block tab-content %}
+<section class="section">
+    <div class="container columns-container">
+        <div class="column is-half is-offset-one-quarter">
 
-    {% load static %}
+            <nav class="panel">
+                <p class="panel-heading">
+                    Animals
+                </p>
 
-    <section class="section" ng-controller="AnimalListController">
-        <div class="container columns-container">
-            <div class="column is-half is-offset-one-quarter">
-
-                <nav class="panel">
-                    <p class="panel-heading">
-                        Animals
-                    </p>
-
-                    <div class="panel-block" ng-repeat="(index, animal) in animals" ng-click="selectAnimal(index)">
-                        <a class="link" ng-href="/animals/{$ animal.id $}">
-                            <b>{$ animal.name $}&nbsp;</b>
+                <div class="panel-block" ng-repeat="(index, animal) in animals" ng-click="selectAnimal(index)">
+                    <a class="link" ng-href="/animals/{$ animal.id $}">
+                        <b>{$ animal.name $}&nbsp;</b>
+                    </a>
+                    <p ng-show="animal.latest_sighting !== null">
+                        {$ animal.latest_sighting.time $} at <a ng-href="/api/locations/{$ animal.latest_sighting.location.id $}">
+                            {$ animal.latest_sighting.location.name $}
                         </a>
-                        <p ng-show="animal.latest_sighting !== null">
-                            {$ animal.latest_sighting.time $} at <a ng-href="/api/locations/{$ animal.latest_sighting.location.id $}">
-                                {$ animal.latest_sighting.location.name $}
-                            </a>
-                        </p>
-                    </div>
-                </nav>
-            </div>
+                    </p>
+                </div>
+            </nav>
         </div>
-    </section>
-    <script src="{% static 'forest_creatures/animals.js' %}"></script>
-{% endblock %}
+    </div>
+</section>
