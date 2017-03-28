@@ -10,22 +10,22 @@ var app = angular.module('animalsApp', ['ngRoute'])
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider
             .when('/animals', {
-                templateUrl: '/animals/templates/animals',
+                templateUrl: '/animals/templates/animals/',
                 controller: 'AnimalListController',
                 activeLink: 'animals'
             })
             .when('/species', {
-                templateUrl: '/animals/templates/species',
+                templateUrl: '/animals/templates/species/',
                 controller: 'SpeciesListController',
                 activeLink: 'species'
             })
             .when('/locations', {
-                templateUrl: '/animals/templates/locations',
+                templateUrl: '/animals/templates/locations/',
                 controller: 'LocationListController',
                 activeLink: 'locations'
             })
             .when('/search', {
-                templateUrl: '/animals/templates/search',
+                templateUrl: '/animals/templates/search/',
                 controller: 'SearchController',
                 activeLink: 'search'
             })
@@ -49,7 +49,7 @@ app.controller('AnimalListController', function ($scope, $http) {
     $scope.init = function () {
         $http({
             method: 'GET',
-            url: '/api/animals'
+            url: '/api/animals/'
         }).then(function (data) {
             $scope.animals = data.data;
         });
@@ -72,7 +72,7 @@ app.controller('SpeciesListController', function ($scope, $http) {
     $scope.init = function () {
         $http({
             method: 'GET',
-            url: '/api/animals/species'
+            url: '/api/animals/species/'
         }).then(function (data) {
             $scope.species = data.data;
         });
