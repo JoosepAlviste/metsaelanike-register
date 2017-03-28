@@ -11,23 +11,12 @@ def index(request):
     return render(request, 'forest_creatures/index.html')
 
 
-def show(request, animal_id):
-
-    try:
-        animal = Animal.objects.get(pk=animal_id)
-    except Animal.DoesNotExist:
-        raise Http404("Animal does not exist")
-
-    return render(request, 'forest_creatures/show.html', {'animal': animal})
+def one_animal_template(request):
+    return render(request, 'forest_creatures/one_animal.html')
 
 
-def one_species(request, species_id):
-    try:
-        specie = Species.objects.get(pk=species_id)
-    except Species.DoesNotExist:
-        raise Http404("Species does not exist")
-
-    return render(request, 'forest_creatures/one_species.html', {'species_id': specie.id, 'species_name': specie.name})
+def one_species_template(request):
+    return render(request, 'forest_creatures/one_species.html')
 
 
 def species_list_template(request):
@@ -36,6 +25,10 @@ def species_list_template(request):
 
 def locations_template(request):
     return render(request, 'forest_creatures/locations.html')
+
+
+def one_location_template(request):
+    return render(request, 'forest_creatures/one_location.html')
 
 
 def animals_template(request):
