@@ -7,7 +7,7 @@
                     Locations
                 </p>
 
-                <a class="panel-block" ng-repeat="(index, location) in locations" ng-click="selectLocation(index)">
+                <a class="panel-block" ng-repeat="(index, location) in locations" ng-click="selectLocation(index)" ng-href="#/locations/{$ location.id $}">
                     {$ location.name $}
                 </a>
             </nav>

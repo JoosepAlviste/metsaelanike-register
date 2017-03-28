@@ -11,6 +11,12 @@ class SpeciesList(generics.ListAPIView):
     serializer_class = SpeciesSerializer
 
 
+class SpeciesDetail(generics.RetrieveAPIView):
+
+    queryset = Species.objects.all()
+    serializer_class = SpeciesSerializer
+
+
 class AnimalDetail(generics.RetrieveAPIView):
 
     queryset = Animal.objects.all()

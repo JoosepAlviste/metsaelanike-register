@@ -1,0 +1,23 @@
+<section class="section">
+    <div class="container columns">
+        <div class="column is-half is-offset-one-quarter">
+
+            <nav class="panel">
+                <p class="panel-heading">
+                    All animals latest seen at {$ location.name $}
+                </p>
+
+                <div class="panel-block" ng-repeat="sighting in locationSightings">
+                    <a class="link" ng-href="#/animals/{$ sighting.animal.id $}">
+                        <b>{$ sighting.animal.name $}&nbsp;</b>
+                    </a>
+                    ({$ sighting.animal.species.name $})
+                    <p ng-show="animal.latest_sighting !== null">
+                        &nbsp;seen at {$ location.name $} at {$ sighting.time $}
+                    </p>
+                </div>
+            </nav>
+
+        </div>
+    </div>
+</section>

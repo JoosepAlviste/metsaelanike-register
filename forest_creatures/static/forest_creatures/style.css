@@ -51,10 +51,6 @@ label.panel-block.sighting {
     padding: 1px;
 }
 
-.sighting:not(.editing) {
-    padding: 10px;
-}
-
 
 /*******************************\
     Species and animals
