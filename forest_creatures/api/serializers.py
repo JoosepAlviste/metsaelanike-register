@@ -27,3 +27,9 @@ class AnimalSerializer(serializers.ModelSerializer):
     class Meta:
         model = Animal
         fields = ('id', 'name', 'species', 'latest_sighting')
+
+
+class SearchResultSerializer(serializers.Serializer):
+    animals = AnimalSerializer(read_only=True, many=True)
+    locations = LocationSerializer(read_only=True, many=True)
+    species = SpeciesSerializer(read_only=True, many=True)
