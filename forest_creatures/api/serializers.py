@@ -2,11 +2,11 @@
 from rest_framework import serializers
 
 from forest_creatures.models import Animal, AnimalSighting, Species
-from locations.serializers import LocationSerializer
+from locations.serializers import LocationSerializer, LocationWithoutSightingSerializer
 
 
 class AnimalSightingSerializer(serializers.ModelSerializer):
-    location = LocationSerializer(read_only=True)
+    location = LocationWithoutSightingSerializer(read_only=True)
     time = serializers.DateTimeField(format='%-H:%M %d.%m.%Y')
 
     class Meta:
@@ -23,6 +23,8 @@ class SpeciesSerializer(serializers.ModelSerializer):
 class AnimalSerializer(serializers.ModelSerializer):
     latest_sighting = AnimalSightingSerializer(read_only=True)
     species = SpeciesSerializer(read_only=True)
+
+    name = serializers.CharField(required=True, max_length=255)
 
     class Meta:
         model = Animal

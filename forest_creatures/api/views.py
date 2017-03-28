@@ -21,7 +21,7 @@ class SpeciesDetail(generics.RetrieveAPIView):
     serializer_class = SpeciesSerializer
 
 
-class AnimalDetail(generics.RetrieveAPIView):
+class AnimalDetail(generics.RetrieveUpdateDestroyAPIView):
 
     queryset = Animal.objects.all()
     serializer_class = AnimalSerializer

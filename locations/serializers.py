@@ -42,3 +42,10 @@ class LocationWithSightingsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Location
         fields = ('id', 'name', 'sightings')
+
+
+class LocationWithoutSightingSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Location
+        fields = ('id', 'name')
