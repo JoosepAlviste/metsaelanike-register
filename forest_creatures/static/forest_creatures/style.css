@@ -51,6 +51,23 @@ label.panel-block.sighting {
     padding: 1px;
 }
 
+.add-button {
+    float: right;
+    padding: 1px 6px;
+    cursor: pointer;
+    border: 2px solid #00d1b2;
+    background-color: #00d1b2;
+    color: #fff;
+    border-radius: 3px;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: -1px;
+}
+
+.add-button a {
+    color: #ffffff;
+}
+
 
 /*******************************\
     Species and animals

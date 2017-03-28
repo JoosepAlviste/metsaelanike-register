@@ -5,8 +5,8 @@
             <nav class="panel">
                 <p class="panel-heading">
                     Animals
+                    <span class="add-button"><a ng-href="#/animals/add">+</a></span>
                 </p>
-
                 <div class="panel-block" ng-repeat="(index, animal) in animals" ng-click="selectAnimal(index)">
                     <a class="link" ng-href="#/animals/{$ animal.id $}">
                         <b>{$ animal.name $}&nbsp;</b>
