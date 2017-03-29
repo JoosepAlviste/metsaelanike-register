@@ -26,11 +26,14 @@ var app = angular.module('animalsApp', ['ngRoute', 'ngMaterial'])
             })
             .when('/animals/:id', {
                 templateUrl: '/animals/templates/one_animal/',
-                controller: 'OneAnimalController'
+                controller: 'OneAnimalController',
+                activeLink: 'animals'
             })
             .when('/animals/:id/edit', {
                 templateUrl: '/animals/templates/edit/',
-                controller: 'AnimalEditController'
+                controller: 'AnimalEditController',
+                controllerAs: 'AnimalEditController',
+                activeLink: 'animals'
             })
             .when('/species', {
                 templateUrl: '/animals/templates/species/',
@@ -39,7 +42,8 @@ var app = angular.module('animalsApp', ['ngRoute', 'ngMaterial'])
             })
             .when('/species/:id', {
                 templateUrl: '/animals/templates/one_species/',
-                controller: 'OneSpeciesController'
+                controller: 'OneSpeciesController',
+                activeLink: 'species'
             })
             .when('/locations', {
                 templateUrl: '/animals/templates/locations/',
@@ -48,7 +52,8 @@ var app = angular.module('animalsApp', ['ngRoute', 'ngMaterial'])
             })
             .when('/locations/:id', {
                 templateUrl: '/animals/templates/one_location/',
-                controller: 'OneLocationController'
+                controller: 'OneLocationController',
+                activeLink: 'locations'
             })
             .when('/search', {
                 templateUrl: '/animals/templates/search/',
@@ -205,10 +210,65 @@ app.controller('SearchController', function ($scope, $http) {
 
 });
 
-app.controller('AnimalEditController', function ($scope, $http, $routeParams, $location) {
+app.controller('AnimalEditController', function ($scope, $http, $q, $routeParams, $location) {
 
-    $scope.animal = null;
+    var $self = this;
+
     $scope.sightings = [];
+    $scope.animal = {};
+
+    $self.simulateQuery = true;
+    $self.species = [];
+    $self.noCache = true;
+    $self.selectedItem = null;
+    $self.searchText = null;
+
+    $self.selectedItemChange = function (item) {
+        $scope.animal.species_id = item.value;
+    };
+
+    $self.querySearch = function (keyword) {
+        var result = keyword ? $self.species.filter(function (species) {
+            return species.display.toLowerCase().indexOf(keyword.toLowerCase()) !== -1;
+        }) : $self.species,
+            deferred;
+
+        deferred = $q.defer();
+        deferred.resolve( result );
+
+        return deferred.promise;
+    };
+
+    $self.createNewSpecies = function (name) {
+        $http({
+            method: 'POST',
+            url: '/api/animals/species/',
+            data: {
+                name: name
+            }
+        }).then(function (data) {
+            $self.species.push({
+                value: data.data.id,
+                display: data.data.name
+            });
+        });
+    };
+
+    $self.loadAllSpecies = function () {
+        $http({
+            method: 'GET',
+            url: '/api/animals/species/'
+        }).then(function (data) {
+            console.log(data.data);
+            $self.species = data.data.map(function (species) {
+                return {
+                    value: species.id,
+                    display: species.name
+                };
+            });
+        });
+    };
+
 
     $scope.init = function () {
         $http({
@@ -216,6 +276,7 @@ app.controller('AnimalEditController', function ($scope, $http, $routeParams, $l
             url: '/api/animals/' + $routeParams.id + '/'
         }).then(function (data) {
             $scope.animal = data.data;
+            $self.selectedItem = $scope.animal.species.name;
         });
         $http({
             method: 'GET',
@@ -225,7 +286,7 @@ app.controller('AnimalEditController', function ($scope, $http, $routeParams, $l
         });
     };
 
-    $scope.saveAnimal = function () {
+    $scope.saveEditedAnimal = function () {
         $http({
             method: 'PUT',
             url: '/api/animals/' + $routeParams.id + '/',
@@ -247,7 +308,6 @@ app.controller('AnimalEditController', function ($scope, $http, $routeParams, $l
     };
 
     $scope.addSightingInput = function () {
-        console.log($scope.sightings);
         var $id = $scope.sightings.length ? $scope.sightings[$scope.sightings.length - 1].id + 1 : 1;
         $scope.sightings.push({
             id: $id
@@ -255,6 +315,7 @@ app.controller('AnimalEditController', function ($scope, $http, $routeParams, $l
     };
 
     $scope.init();
+    $self.loadAllSpecies();
 
 });
 

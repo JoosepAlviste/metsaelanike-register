@@ -14,7 +14,27 @@
                     <div class="field">
                         <label class="label">Species</label>
                         <p class="control">
-                            <input class="input" type="text" value="{$ animal.species.name $}" ng-model="animal.species.name">
+                            <md-autocomplete
+                                    md-no-cache="AnimalEditController.noCache"
+                                    md-selected-item="AnimalEditController.selectedItem"
+                                    md-search-text-change="AnimalEditController.searchTextChange(AnimalEditController.searchText)"
+                                    md-search-text="AnimalEditController.searchText"
+                                    md-selected-item-change="AnimalEditController.selectedItemChange(item)"
+                                    md-items="item in AnimalEditController.querySearch(AnimalEditController.searchText)"
+                                    md-item-text="item.display"
+                                    md-min-length="0"
+                                    placeholder="Pick a species or add new!">
+                                <md-item-template>
+                                    <span md-highlight-text="AnimalEditController.searchText"
+                                          md-highlight-flags="^i">{$ item.display $}</span>
+                                </md-item-template>
+                                <md-not-found>
+                                    <a ng-click="AnimalEditController.createNewSpecies(AnimalEditController.searchText)">
+                                        No species matching "{$ AnimalEditController.searchText $}" were found.
+                                        Create a new one!
+                                    </a>
+                                </md-not-found>
+                            </md-autocomplete>
                         </p>
                     </div>
                 </form>
@@ -41,7 +61,7 @@
                 <div class="sighting add-sighting"><button class="button add-sighting-btn" ng-click="addSightingInput()">Add sighting</button></div>
             </div>
             <div class="form-container submit-container">
-                <button type="submit" class="button is-primary" ng-click="saveAnimal()">Save</button>
+                <button type="submit" class="button is-primary" ng-click="saveEditedAnimal()">Save</button>
                 <button type="button" class="button is-danger" ng-click="deleteAnimal()">Delete</button>
             </div>
         </div>
