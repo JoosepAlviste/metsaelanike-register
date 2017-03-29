@@ -219,18 +219,36 @@ app.controller('AnimalEditController', function ($scope, $http, $q, $routeParams
 
     $self.simulateQuery = true;
     $self.species = [];
+    $self.locations = [];
     $self.noCache = true;
     $self.selectedItem = null;
+    $self.selectedItemLocationList = [];
     $self.searchText = null;
+    $self.searchTextLocationList = [];
 
     $self.selectedItemChange = function (item) {
         $scope.animal.species_id = item.value;
+    };
+    $self.selectedItemChangeLocation = function (item, index) {
+        $scope.sightings[index].location.id = item.value;
+        $scope.sightings[index].location.name = item.display;
     };
 
     $self.querySearch = function (keyword) {
         var result = keyword ? $self.species.filter(function (species) {
             return species.display.toLowerCase().indexOf(keyword.toLowerCase()) !== -1;
         }) : $self.species,
+            deferred;
+
+        deferred = $q.defer();
+        deferred.resolve( result );
+
+        return deferred.promise;
+    };
+    $self.querySearchLocation = function (keyword) {
+        var result = keyword ? $self.locations.filter(function (locations) {
+            return locations.display.toLowerCase().indexOf(keyword.toLowerCase()) !== -1;
+        }) : $self.locations,
             deferred;
 
         deferred = $q.defer();
@@ -253,17 +271,43 @@ app.controller('AnimalEditController', function ($scope, $http, $q, $routeParams
             });
         });
     };
+    $self.createNewLocation = function (name) {
+        $http({
+            method: 'POST',
+            url: '/api/locations/',
+            data: {
+                name: name
+            }
+        }).then(function (data) {
+            $self.locations.push({
+                value: data.data.id,
+                display: data.data.name
+            });
+        });
+    };
 
     $self.loadAllSpecies = function () {
         $http({
             method: 'GET',
             url: '/api/animals/species/'
         }).then(function (data) {
-            console.log(data.data);
             $self.species = data.data.map(function (species) {
                 return {
                     value: species.id,
                     display: species.name
+                };
+            });
+        });
+    };
+    $self.loadAllLocations = function () {
+        $http({
+            method: 'GET',
+            url: '/api/locations/'
+        }).then(function (data) {
+            $self.locations = data.data.map(function (location) {
+                return {
+                    value: location.id,
+                    display: location.name
                 };
             });
         });
@@ -283,6 +327,11 @@ app.controller('AnimalEditController', function ($scope, $http, $q, $routeParams
             url: '/api/animals/' + $routeParams.id + '/sightings/'
         }).then(function (data) {
             $scope.sightings = data.data;
+            console.log($scope.sightings);
+            angular.forEach($scope.sightings, function(entry, index) {
+                console.log(entry);
+                $self.selectedItemLocationList[index] = entry.location.name;
+            })
         });
     };
 
@@ -309,14 +358,15 @@ app.controller('AnimalEditController', function ($scope, $http, $q, $routeParams
     };
 
     $scope.addSightingInput = function () {
-        var $id = $scope.sightings.length ? $scope.sightings[$scope.sightings.length - 1].id + 1 : 1;
         $scope.sightings.push({
-            id: $id
+            location: {}
         });
+        console.log($scope.sightings);
     };
 
     $scope.init();
     $self.loadAllSpecies();
+    $self.loadAllLocations();
 
 });
 
