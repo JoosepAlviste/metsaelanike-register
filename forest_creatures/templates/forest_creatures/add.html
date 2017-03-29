@@ -25,6 +25,7 @@
                         <label class="label">Species</label>
                         <p class="control">
                             <md-autocomplete
+                                    ng-class="{ 'is-danger': hasErrors('species_id') }"
                                     md-no-cache="AnimalAddController.noCache"
                                     md-selected-item="AnimalAddController.selectedItem"
                                     md-search-text-change="AnimalAddController.searchTextChange(AnimalAddController.searchText)"
@@ -45,6 +46,9 @@
                                     </a>
                                 </md-not-found>
                             </md-autocomplete>
+                        </p>
+                        <p class="help is-danger" ng-if="hasErrors('species_id')">
+                            {$ getError('species_id') $}
                         </p>
                     </div>
                 </form>
