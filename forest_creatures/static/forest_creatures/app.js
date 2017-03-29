@@ -246,6 +246,14 @@ app.controller('AnimalEditController', function ($scope, $http, $routeParams, $l
         });
     };
 
+    $scope.addSightingInput = function () {
+        console.log($scope.sightings);
+        var $id = $scope.sightings.length ? $scope.sightings[$scope.sightings.length - 1].id + 1 : 1;
+        $scope.sightings.push({
+            id: $id
+        });
+    };
+
     $scope.init();
 
 });

@@ -7,14 +7,24 @@
                     All animals latest seen at {$ location.name $}
                 </p>
 
-                <div class="panel-block" ng-repeat="sighting in locationSightings">
-                    <a class="link" ng-href="#/animals/{$ sighting.animal.id $}">
-                        <b>{$ sighting.animal.name $}&nbsp;</b>
-                    </a>
-                    ({$ sighting.animal.species.name $})
-                    <p ng-show="animal.latest_sighting !== null">
-                        &nbsp;seen at {$ location.name $} at {$ sighting.time $}
-                    </p>
+                <div class="panel-block one-animal-container" ng-repeat="sighting in locationSightings">
+                    <div class="animal-div">
+                        <a class="link" ng-href="#/animals/{$ sighting.animal.id $}">
+                            <b>{$ sighting.animal.name $}&nbsp;</b>
+                        </a>
+                        ({$ sighting.animal.species.name $})
+                        <div ng-if="sighting.animal.latest_sighting !== null">
+                            &nbsp;at {$ location.name $}
+                        </div>
+                    </div>
+                    <div class="time-div">
+                        <p class="time" ng-if="animal.latest_sighting !== null">
+                            {$ sighting.time $}
+                        </p>
+                        <div ng-if="animal.latest_sighting === null">
+                            No sightings yet!
+                        </div>
+                    </div>
                 </div>
             </nav>
 
