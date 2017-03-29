@@ -39,11 +39,6 @@ class AnimalList(generics.ListCreateAPIView):
             queryset = Animal.objects.filter(Q(name__icontains=keyword) | Q(species__name__icontains=keyword))
 
         return queryset
-    #
-    # def get_serializer_class(self):
-    #     if self.action == 'create':
-    #         return AnimalCreateSerializer
-    #     return self.serializer_class
 
 
 class SightingList(generics.ListAPIView):

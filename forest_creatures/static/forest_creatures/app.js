@@ -205,7 +205,7 @@ app.controller('SearchController', function ($scope, $http) {
 
 });
 
-app.controller('AnimalEditController', function ($scope, $http, $routeParams) {
+app.controller('AnimalEditController', function ($scope, $http, $routeParams, $location) {
 
     $scope.animal = null;
     $scope.sightings = [];
@@ -238,7 +238,12 @@ app.controller('AnimalEditController', function ($scope, $http, $routeParams) {
     };
 
     $scope.deleteAnimal = function () {
-
+        $http({
+            method: 'DELETE',
+            url: '/api/animals/' + $routeParams.id + '/'
+        }).then(function (data) {
+            $location.path('/animals');
+        });
     };
 
     $scope.init();
