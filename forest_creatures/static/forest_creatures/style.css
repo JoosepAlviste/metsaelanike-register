@@ -1,5 +1,14 @@
 body {
     min-height: 100vh;
+    background-color: #fff;
+}
+
+.section {
+    background-color: transparent;
+}
+
+.panel-block {
+    background-color: #fff;
 }
 
 .animal-title:hover .edit-icon, .sighting:hover .sighting-edit-icon {
@@ -86,6 +95,7 @@ label.panel-block.sighting {
     Species and animals
 \*******************************/
 
+
 .animals-column {
     margin-top: 15px;
 }
@@ -135,7 +145,7 @@ label.panel-block.sighting {
     font-size: 28px;
     padding: 10px 15px;
     width: calc(100% - 50px);
-
+    background-color: transparent;
     border: none;
     border-bottom: 2px solid #00D1B2;
     color: #a9a9a9;
@@ -147,4 +157,19 @@ label.panel-block.sighting {
 
 .sightings-container, .submit-container {
     margin-top: 30px;
+}
+
+
+/**************************\
+     AUTOCOMPLETE
+\**************************/
+
+.md-virtual-repeat-container.md-autocomplete-suggestions-container {
+    border-radius: 3px;
+}
+
+.md-whiteframe-1dp, .md-whiteframe-z1 {
+    border: 1px solid rgb(219, 219, 219);
+    box-shadow: rgba(10, 10, 10, 0.0980392) 0px 1px 2px inset;
+    border-radius: 3px;
 }
