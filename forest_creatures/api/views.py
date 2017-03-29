@@ -26,6 +26,11 @@ class AnimalDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Animal.objects.all()
     serializer_class = AnimalSerializer
 
+    def put(self, request, *args, **kwargs):
+        animal = self.update(request, *args, **kwargs)
+
+        return animal
+
 
 class AnimalList(generics.ListAPIView):
 
