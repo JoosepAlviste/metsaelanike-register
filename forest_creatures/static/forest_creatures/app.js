@@ -205,6 +205,7 @@ app.controller('SearchController', function ($scope, $http) {
 
 });
 
+
 app.controller('AnimalEditController', function ($scope, $http, $routeParams, $location) {
 
     $scope.animal = null;
@@ -233,7 +234,7 @@ app.controller('AnimalEditController', function ($scope, $http, $routeParams, $l
                 'name': $scope.animal.name
             }
         }).then(function (data) {
-            console.log(data);
+            $location.path('/animals/' + $routeParams.id + '/');
         });
     };
 
@@ -256,6 +257,7 @@ app.controller('AnimalAddController', function ($scope, $http, $q, $location) {
     var $self = this;
 
     $scope.animal = {};
+    $scope.errors = {};
 
     $self.simulateQuery = true;
     $self.species = [];
@@ -315,7 +317,24 @@ app.controller('AnimalAddController', function ($scope, $http, $q, $location) {
             data: $scope.animal
         }).then(function (data) {
             $location.path('/animals/' + data.data.id);
+        }).catch(function (error) {
+            $scope.errors = error.data;
         });
+    };
+
+    $scope.hasErrors = function (field) {
+        return $scope.errors.hasOwnProperty(field) && $scope.errors[field].length > 0;
+    };
+
+    $scope.getError = function (field) {
+        if ($scope.hasErrors(field)) {
+            return $scope.errors[field][0];
+        }
+        return '';
+    };
+
+    $scope.clearErrors = function (field) {
+        $scope.errors[field] = [];
     };
 
     $self.loadAllSpecies();
