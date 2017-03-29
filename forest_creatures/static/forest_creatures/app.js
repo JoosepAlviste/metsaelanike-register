@@ -397,6 +397,7 @@ app.controller('AnimalAddController', function ($scope, $http, $q, $location) {
 
     $self.selectedItemChange = function (item) {
         $scope.animal.species_id = item.value;
+        $scope.clearErrors('species_id');
     };
 
     $self.querySearch = function (keyword) {
