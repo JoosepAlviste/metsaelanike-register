@@ -68,6 +68,11 @@ label.panel-block.sighting {
     color: #ffffff;
 }
 
+.add-button:hover {
+    background-color: #00b495;
+    border-color: #00b495;
+}
+
 
 /*******************************\
     Species and animals
