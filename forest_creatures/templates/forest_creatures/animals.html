@@ -12,14 +12,20 @@
                         <a class="link" ng-href="#/animals/{$ animal.id $}">
                             <b>{$ animal.name $}&nbsp;</b>
                         </a>
-                        <a ng-href="#/locations/{$ animal.latest_sighting.location.id $}">
-                            at&nbsp;{$ animal.latest_sighting.location.name $}
-                        </a>
+                        <div ng-if="animal.latest_sighting !== null">
+                            at
+                            <a ng-href="#/locations/{$ animal.latest_sighting.location.id $}">
+                                {$ animal.latest_sighting.location.name $}
+                            </a>
+                        </div>
                     </div>
                     <div class="time-div">
-                        <p class="time" ng-show="animal.latest_sighting !== null">
+                        <p class="time" ng-if="animal.latest_sighting !== null">
                             {$ animal.latest_sighting.time $}
                         </p>
+                        <div ng-if="animal.latest_sighting === null">
+                            No sightings yet!
+                        </div>
                     </div>
                 </div>
             </nav>
