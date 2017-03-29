@@ -9,7 +9,7 @@ from forest_creatures.models import Animal, AnimalSighting, Species
 from locations.models import Location
 
 
-class SpeciesList(generics.ListAPIView):
+class SpeciesList(generics.ListCreateAPIView):
 
     queryset = Species.objects.all()
     serializer_class = SpeciesSerializer

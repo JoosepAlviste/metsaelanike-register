@@ -41,3 +41,7 @@ def search_template(request):
 
 def edit_template(request):
     return render(request, 'forest_creatures/edit.html')
+
+
+def add_template(request):
+    return render(request, 'forest_creatures/add.html')

@@ -1,5 +1,5 @@
-var app = angular.module('animalsApp', ['ngRoute'])
-    .config(function($interpolateProvider) {
+var app = angular.module('animalsApp', ['ngRoute', 'ngMaterial'])
+    .config(function ($interpolateProvider) {
         $interpolateProvider.startSymbol('{$');
         $interpolateProvider.endSymbol('$}');
     })
@@ -16,6 +16,12 @@ var app = angular.module('animalsApp', ['ngRoute'])
             .when('/animals', {
                 templateUrl: '/animals/templates/animals/',
                 controller: 'AnimalListController',
+                activeLink: 'animals'
+            })
+            .when('/animals/add', {
+                templateUrl: '/animals/templates/add',
+                controller: 'AnimalAddController',
+                controllerAs: 'AnimalAddController',
                 activeLink: 'animals'
             })
             .when('/animals/:id', {
@@ -95,7 +101,7 @@ app.controller('OneAnimalController', function ($scope, $http, $routeParams) {
         }).then(function (data) {
             $scope.animal = data.data;
         });
-         $http({
+        $http({
             method: 'GET',
             url: '/api/animals/' + $routeParams.id + '/sightings/'
         }).then(function (data) {
@@ -199,7 +205,7 @@ app.controller('SearchController', function ($scope, $http) {
 
 });
 
-app.controller('AnimalEditController', function($scope, $http, $routeParams) {
+app.controller('AnimalEditController', function ($scope, $http, $routeParams) {
 
     $scope.animal = null;
     $scope.sightings = [];
@@ -211,7 +217,7 @@ app.controller('AnimalEditController', function($scope, $http, $routeParams) {
         }).then(function (data) {
             $scope.animal = data.data;
         });
-         $http({
+        $http({
             method: 'GET',
             url: '/api/animals/' + $routeParams.id + '/sightings/'
         }).then(function (data) {
@@ -237,4 +243,73 @@ app.controller('AnimalEditController', function($scope, $http, $routeParams) {
 
     $scope.init();
 
+});
+
+
+app.controller('AnimalAddController', function ($scope, $http, $q, $timeout) {
+
+    var $self = this;
+
+    $scope.animal = {};
+
+    $self.simulateQuery = true;
+    $self.species = [];
+    $self.noCache = true;
+    $self.selectedItem = null;
+    $self.searchText = null;
+
+    $self.selectedItemChange = function (item) {
+    };
+    $self.searchTextChange = function (text) {
+    };
+
+    $self.querySearch = function (keyword) {
+        var result = keyword ? $self.species.filter(function (species) {
+            return species.display.toLowerCase().indexOf(keyword.toLowerCase()) !== -1;
+        }) : $self.species,
+            deferred;
+
+        deferred = $q.defer();
+        deferred.resolve( result );
+
+        return deferred.promise;
+    };
+
+    $self.newState = function (keyword) {
+        var deferred = $q.defer();
+        $http({
+            method: 'POST',
+            url: '/api/animals/species/',
+            data: {
+                name: keyword
+            }
+        }).then(function (data) {
+            $self.species.push({
+                value: data.data.id,
+                display: data.data.name
+            });
+            deferred.resolve({
+                value: data.data.id,
+                display: data.data.name
+            });
+        });
+
+        return deferred;
+    };
+
+    $self.loadAllSpecies = function () {
+        $http({
+            method: 'GET',
+            url: '/api/animals/species/'
+        }).then(function (data) {
+            $self.species = data.data.map(function (species) {
+                return {
+                    value: species.id,
+                    display: species.name
+                };
+            });
+        });
+    };
+
+    $self.loadAllSpecies();
 });
