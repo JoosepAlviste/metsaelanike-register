@@ -113,10 +113,15 @@ TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
-USE_L10N = True
+USE_L10N = False
 
-USE_TZ = True
+USE_TZ = False
 
+DATETIME_FORMAT = '%H:%M %d.%m.%Y'
+
+DATETIME_INPUT_FORMATS = [
+    '%H:%M %d.%m.%Y'
+]
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
@@ -130,3 +135,5 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.AllowAny'
     ]
 }
+
+

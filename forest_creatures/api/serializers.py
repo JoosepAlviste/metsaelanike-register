@@ -8,7 +8,7 @@ from locations.serializers import LocationSerializer, LocationWithoutSightingSer
 
 class AnimalSightingSerializer(serializers.ModelSerializer):
     location = LocationWithoutSightingSerializer(read_only=True)
-    time = serializers.DateTimeField(required=True, format='%-H:%M %d.%m.%Y')
+    time = serializers.DateTimeField(required=True, format='%H:%M %d.%m.%Y', input_formats=['%H:%M %d.%m.%Y'])
     location_id = serializers.PrimaryKeyRelatedField(
         queryset=Location.objects.all(), source='locations', write_only=True, required=False)
     id = serializers.IntegerField(required=False)

@@ -227,7 +227,7 @@ app.controller('AnimalEditController', function ($scope, $http, $q, $routeParams
     $self.searchTextLocationList = [];
 
     $self.selectedItemChange = function (item) {
-        $scope.animal.species_id = item.value;
+        $scope.animal.species.id = item.value;
     };
     $self.selectedItemChangeLocation = function (item, index) {
         $scope.sightings[index].location.id = item.value;
@@ -320,28 +320,39 @@ app.controller('AnimalEditController', function ($scope, $http, $q, $routeParams
             url: '/api/animals/' + $routeParams.id + '/'
         }).then(function (data) {
             $scope.animal = data.data;
-            $self.selectedItem = $scope.animal.species.name;
+            $self.selectedItem = {
+                'value': $scope.animal.species.id,
+                'display': $scope.animal.species.name
+            };
         });
         $http({
             method: 'GET',
             url: '/api/animals/' + $routeParams.id + '/sightings/'
         }).then(function (data) {
             $scope.sightings = data.data;
-            console.log($scope.sightings);
             angular.forEach($scope.sightings, function(entry, index) {
-                console.log(entry);
                 $self.selectedItemLocationList[index] = entry.location.name;
             })
         });
     };
 
     $scope.saveEditedAnimal = function () {
+        var $sightingsInfo = [];
+        angular.forEach($scope.sightings, function (entry, key) {
+            $sightingsInfo.push({
+                'location_id': entry.location.id,
+                'time': entry.time
+            });
+        });
+        console.log($sightingsInfo);
+        console.log($scope.animal);
         $http({
             method: 'PUT',
             url: '/api/animals/' + $routeParams.id + '/',
             data: {
                 'name': $scope.animal.name,
-                'species_id': $scope.animal.species_id
+                'species_id': $scope.animal.species.id,
+                'sightings': $sightingsInfo
             }
         }).then(function (data) {
             $location.path('/animals/' + $routeParams.id + '/');
