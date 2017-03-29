@@ -56,6 +56,7 @@ class AnimalSerializer(serializers.ModelSerializer):
                 sighting.location = request_sighting['locations']
                 sighting.save()
 
+        instance.save()
         return instance
 
 

@@ -227,7 +227,15 @@ app.controller('AnimalEditController', function ($scope, $http, $q, $routeParams
     $self.searchTextLocationList = [];
 
     $self.selectedItemChange = function (item) {
-        $scope.animal.species.id = item.value;
+        if (typeof item !== 'undefined' && item !== null) {
+            if ($scope.animal.species === null) {
+                $scope.animal.species = {
+                    id: item.value
+                };
+            } else {
+                $scope.animal.species.id = item.value;
+            }
+        }
     };
     $self.selectedItemChangeLocation = function (item, index) {
         $scope.sightings[index].location.id = item.value;
@@ -376,7 +384,6 @@ app.controller('AnimalEditController', function ($scope, $http, $q, $routeParams
     $scope.init();
     $self.loadAllSpecies();
     $self.loadAllLocations();
-
 });
 
 
