@@ -246,7 +246,7 @@ app.controller('AnimalEditController', function ($scope, $http, $routeParams) {
 });
 
 
-app.controller('AnimalAddController', function ($scope, $http, $q, $timeout) {
+app.controller('AnimalAddController', function ($scope, $http, $q, $location) {
 
     var $self = this;
 
@@ -259,8 +259,7 @@ app.controller('AnimalAddController', function ($scope, $http, $q, $timeout) {
     $self.searchText = null;
 
     $self.selectedItemChange = function (item) {
-    };
-    $self.searchTextChange = function (text) {
+        $scope.animal.species_id = item.value;
     };
 
     $self.querySearch = function (keyword) {
@@ -275,26 +274,19 @@ app.controller('AnimalAddController', function ($scope, $http, $q, $timeout) {
         return deferred.promise;
     };
 
-    $self.newState = function (keyword) {
-        var deferred = $q.defer();
+    $self.createNewSpecies = function (name) {
         $http({
             method: 'POST',
             url: '/api/animals/species/',
             data: {
-                name: keyword
+                name: name
             }
         }).then(function (data) {
             $self.species.push({
                 value: data.data.id,
                 display: data.data.name
             });
-            deferred.resolve({
-                value: data.data.id,
-                display: data.data.name
-            });
         });
-
-        return deferred;
     };
 
     $self.loadAllSpecies = function () {
@@ -308,6 +300,16 @@ app.controller('AnimalAddController', function ($scope, $http, $q, $timeout) {
                     display: species.name
                 };
             });
+        });
+    };
+
+    $scope.saveAnimal = function () {
+        $http({
+            method: 'POST',
+            url: '/api/animals/',
+            data: $scope.animal
+        }).then(function (data) {
+            $location.path('/animals/' + data.data.id);
         });
     };
 

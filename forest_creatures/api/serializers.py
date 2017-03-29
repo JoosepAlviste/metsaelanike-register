@@ -25,10 +25,11 @@ class AnimalSerializer(serializers.ModelSerializer):
     species = SpeciesSerializer(read_only=True)
 
     name = serializers.CharField(required=True, max_length=255)
+    species_id = serializers.PrimaryKeyRelatedField(queryset=Species.objects.all(), source='species', write_only=True)
 
     class Meta:
         model = Animal
-        fields = ('id', 'name', 'species', 'latest_sighting')
+        fields = ('id', 'name', 'species', 'latest_sighting', 'species_id')
 
 
 class SearchResultSerializer(serializers.Serializer):

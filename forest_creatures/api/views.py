@@ -10,19 +10,16 @@ from locations.models import Location
 
 
 class SpeciesList(generics.ListCreateAPIView):
-
     queryset = Species.objects.all()
     serializer_class = SpeciesSerializer
 
 
 class SpeciesDetail(generics.RetrieveAPIView):
-
     queryset = Species.objects.all()
     serializer_class = SpeciesSerializer
 
 
 class AnimalDetail(generics.RetrieveUpdateDestroyAPIView):
-
     queryset = Animal.objects.all()
     serializer_class = AnimalSerializer
 
@@ -32,8 +29,7 @@ class AnimalDetail(generics.RetrieveUpdateDestroyAPIView):
         return animal
 
 
-class AnimalList(generics.ListAPIView):
-
+class AnimalList(generics.ListCreateAPIView):
     serializer_class = AnimalSerializer
 
     def get_queryset(self):
@@ -43,10 +39,14 @@ class AnimalList(generics.ListAPIView):
             queryset = Animal.objects.filter(Q(name__icontains=keyword) | Q(species__name__icontains=keyword))
 
         return queryset
+    #
+    # def get_serializer_class(self):
+    #     if self.action == 'create':
+    #         return AnimalCreateSerializer
+    #     return self.serializer_class
 
 
 class SightingList(generics.ListAPIView):
-
     serializer_class = AnimalSightingSerializer
 
     def get_queryset(self):
@@ -55,7 +55,6 @@ class SightingList(generics.ListAPIView):
 
 
 class AnimalListBySpecies(generics.ListAPIView):
-
     serializer_class = AnimalSerializer
 
     def get_queryset(self):
@@ -64,11 +63,9 @@ class AnimalListBySpecies(generics.ListAPIView):
 
 
 class Search(APIView):
-
     queryset = Animal.objects.all()
 
     def get(self, request, format=None):
-
         animals = Animal.objects.all()
         locations = Location.objects.all()
         species = Species.objects.all()
