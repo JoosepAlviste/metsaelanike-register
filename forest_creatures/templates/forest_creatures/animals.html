@@ -7,15 +7,20 @@
                     Animals
                     <span class="add-button"><a ng-href="#/animals/add">+</a></span>
                 </p>
-                <div class="panel-block" ng-repeat="(index, animal) in animals" ng-click="selectAnimal(index)">
-                    <a class="link" ng-href="#/animals/{$ animal.id $}">
-                        <b>{$ animal.name $}&nbsp;</b>
-                    </a>
-                    <p ng-show="animal.latest_sighting !== null">
-                        {$ animal.latest_sighting.time $} at <a ng-href="#/locations/{$ animal.latest_sighting.location.id $}">
-                            {$ animal.latest_sighting.location.name $}
+                <div class="panel-block one-animal-container" ng-repeat="(index, animal) in animals" ng-click="selectAnimal(index)">
+                    <div class="animal-div">
+                        <a class="link" ng-href="#/animals/{$ animal.id $}">
+                            <b>{$ animal.name $}&nbsp;</b>
                         </a>
-                    </p>
+                        <a ng-href="#/locations/{$ animal.latest_sighting.location.id $}">
+                            at&nbsp;{$ animal.latest_sighting.location.name $}
+                        </a>
+                    </div>
+                    <div class="time-div">
+                        <p class="time" ng-show="animal.latest_sighting !== null">
+                            {$ animal.latest_sighting.time $}
+                        </p>
+                    </div>
                 </div>
             </nav>
         </div>

@@ -73,6 +73,14 @@ label.panel-block.sighting {
     border-color: #00b495;
 }
 
+.one-animal-container {
+    justify-content: space-between;
+}
+
+.animal-div {
+    display: flex;
+}
+
 
 /*******************************\
     Species and animals
