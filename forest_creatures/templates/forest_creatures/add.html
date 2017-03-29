@@ -2,13 +2,23 @@
     <div class="container is-fluid columns-container">
         <div class="column is-half is-offset-one-quarter">
 
-            <h1 class="title is-1 animal-title">Add {$ animal.name $}</h1>
+            <h1 class="title is-1 animal-title">Add a new animal!</h1>
             <div class="form-container">
                 <form id="edit-form">
                     <div class="field">
                         <label class="label">Name</label>
-                        <p class="control">
-                            <input class="input" type="text" value="{$ animal.name $}" ng-model="animal.name">
+                        <p class="control" ng-class="{ 'has-icon has-icon-right': hasErrors('name') }">
+                            <input class="input"
+                                   ng-class="{ 'is-danger': hasErrors('name') }"
+                                   type="text"
+                                   ng-model="animal.name"
+                                   ng-change="clearErrors('name')">
+                            <span class="icon is-small" ng-if="hasErrors('name')">
+                                <i class="fa fa-warning"></i>
+                            </span>
+                        </p>
+                        <p class="help is-danger" ng-if="hasErrors('name')">
+                            {$ getError('name') $}
                         </p>
                     </div>
                     <div class="field">

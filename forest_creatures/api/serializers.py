@@ -2,16 +2,20 @@
 from rest_framework import serializers
 
 from forest_creatures.models import Animal, AnimalSighting, Species
+from locations.models import Location
 from locations.serializers import LocationSerializer, LocationWithoutSightingSerializer
 
 
 class AnimalSightingSerializer(serializers.ModelSerializer):
     location = LocationWithoutSightingSerializer(read_only=True)
-    time = serializers.DateTimeField(format='%-H:%M %d.%m.%Y')
+    time = serializers.DateTimeField(required=True, format='%-H:%M %d.%m.%Y')
+    location_id = serializers.PrimaryKeyRelatedField(
+        queryset=Location.objects.all(), source='locations', write_only=True, required=False)
+    id = serializers.IntegerField(required=False)
 
     class Meta:
         model = AnimalSighting
-        fields = ('id', 'location', 'time')
+        fields = ('id', 'location', 'time', 'location_id')
 
 
 class SpeciesSerializer(serializers.ModelSerializer):
@@ -23,13 +27,36 @@ class SpeciesSerializer(serializers.ModelSerializer):
 class AnimalSerializer(serializers.ModelSerializer):
     latest_sighting = AnimalSightingSerializer(read_only=True)
     species = SpeciesSerializer(read_only=True)
+    sightings = AnimalSightingSerializer(many=True, write_only=True, required=False)
 
     name = serializers.CharField(required=True, max_length=255)
     species_id = serializers.PrimaryKeyRelatedField(queryset=Species.objects.all(), source='species', write_only=True)
 
     class Meta:
         model = Animal
-        fields = ('id', 'name', 'species', 'latest_sighting', 'species_id')
+        fields = ('id', 'name', 'species', 'latest_sighting', 'species_id', 'sightings')
+
+    def update(self, instance, validated_data):
+        instance.name = validated_data.get('name', instance.name)
+        instance.species = validated_data.get('species', instance.species)
+
+        for request_sighting in validated_data.get('sightings'):
+            if request_sighting.get('id', None) is None:
+                # Create a new sighting
+                sighting = AnimalSighting(
+                    time=request_sighting['time'],
+                    location=request_sighting['locations'],
+                    animal_id=instance.id
+                )
+                sighting.save()
+            else:
+                # Get an existing sighting and set its stuffs
+                sighting = AnimalSighting.objects.filter(id=request_sighting['id']).first()
+                sighting.time = request_sighting['time']
+                sighting.location = request_sighting['locations']
+                sighting.save()
+
+        return instance
 
 
 class SearchResultSerializer(serializers.Serializer):
