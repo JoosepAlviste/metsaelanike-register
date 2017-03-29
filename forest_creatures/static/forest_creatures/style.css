@@ -153,3 +153,7 @@ a.add-button {
 .md-whiteframe-z1.md-menu-showing {
     border: 1px solid #00d1b2;
 }
+
+md-autocomplete input:not(.md-input) {
+    font-size: 1rem;
+}

@@ -291,7 +291,8 @@ app.controller('AnimalEditController', function ($scope, $http, $q, $routeParams
             method: 'PUT',
             url: '/api/animals/' + $routeParams.id + '/',
             data: {
-                'name': $scope.animal.name
+                'name': $scope.animal.name,
+                'species_id': $scope.animal.species_id
             }
         }).then(function (data) {
             console.log(data);
