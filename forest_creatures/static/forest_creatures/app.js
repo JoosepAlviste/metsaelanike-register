@@ -338,14 +338,15 @@ app.controller('AnimalEditController', function ($scope, $http, $q, $routeParams
 
     $scope.saveEditedAnimal = function () {
         var $sightingsInfo = [];
+        console.log("sightings:");
+        console.log($scope.sightings);
         angular.forEach($scope.sightings, function (entry, key) {
             $sightingsInfo.push({
+                'id': entry.id,
                 'location_id': entry.location.id,
                 'time': entry.time
             });
         });
-        console.log($sightingsInfo);
-        console.log($scope.animal);
         $http({
             method: 'PUT',
             url: '/api/animals/' + $routeParams.id + '/',
