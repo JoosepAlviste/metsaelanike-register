@@ -11,16 +11,15 @@ body {
     background-color: #fff;
 }
 
-.animal-title:hover .edit-icon, .sighting:hover .sighting-edit-icon {
-    visibility: visible;
-}
-
 .edit-icon, .sighting-edit-icon {
     width: 24px;
     height: 24px;
     fill: #2e3035;
     vertical-align: middle;
-    visibility: hidden;
+}
+
+.edit-icon:hover, .sighting-edit-icon:hover {
+    fill: #6b6e73;
 }
 
 .sighting-edit-icon {
@@ -33,34 +32,7 @@ label.panel-block.sighting {
     cursor: default;
 }
 
-.animal-edit-input {
-    border: none;
-    outline: none;
-    background-color: transparent;
-    border-bottom: 2px solid transparent;
-    transition: border-bottom 0.2s ease-in;
-    padding: 0;
-}
-
-.animal-edit-input:focus {
-    border-bottom: 2px solid #00D1B2;
-}
-
-.animal-edit-input.subtitle {
-    display: block;
-    margin-top: 5px;
-    line-height: 1.5em;
-}
-
-.sighting .animal-edit-input {
-    font-size: 16px;
-    margin-left: 23px;
-    width: 90%;
-    line-height: 1.5em;
-    padding: 1px;
-}
-
-.add-button {
+a.add-button {
     float: right;
     padding: 1px 6px;
     cursor: pointer;
@@ -71,10 +43,6 @@ label.panel-block.sighting {
     font-size: 18px;
     font-weight: bold;
     margin-top: -1px;
-}
-
-.add-button a {
-    color: #ffffff;
 }
 
 .add-button:hover {
@@ -88,6 +56,10 @@ label.panel-block.sighting {
 
 .animal-div {
     display: flex;
+}
+
+.add-sighting {
+    text-align: center;
 }
 
 
@@ -155,6 +127,10 @@ label.panel-block.sighting {
     outline: none;
 }
 
+.form-container.sightings-container .sighting {
+    margin-bottom: 30px;
+}
+
 .sightings-container, .submit-container {
     margin-top: 30px;
 }
@@ -172,4 +148,12 @@ label.panel-block.sighting {
     border: 1px solid rgb(219, 219, 219);
     box-shadow: rgba(10, 10, 10, 0.0980392) 0px 1px 2px inset;
     border-radius: 3px;
+}
+
+.md-whiteframe-z1.md-menu-showing {
+    border: 1px solid #00d1b2;
+}
+
+md-autocomplete input:not(.md-input) {
+    font-size: 1rem;
 }

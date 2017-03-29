@@ -7,15 +7,26 @@
                     All {$ species.name $} animals
                 </p>
 
-                <div class="panel-block" ng-repeat="animal in speciesAnimals" ng-click="selectAnimal(index)">
-                    <a class="link" ng-href="#/animals/{$ animal.id $}">
-                        <b>{$ animal.name $}&nbsp;</b>
-                    </a>
-                    <p ng-show="animal.latest_sighting !== null">
-                        {$ animal.latest_sighting.time $} at <a ng-href="#/locations/{$ animal.latest_sighting.location.id $}">
-                            {$ animal.latest_sighting.location.name $}
+                <div class="panel-block one-animal-container" ng-repeat="animal in speciesAnimals" ng-click="selectAnimal(index)">
+                    <div class="animal-div">
+                        <a class="link" ng-href="#/animals/{$ animal.id $}">
+                            <b>{$ animal.name $}&nbsp;</b>
                         </a>
-                    </p>
+                        <div ng-if="animal.latest_sighting !== null">
+                            at
+                            <a ng-href="#/locations/{$ animal.latest_sighting.location.id $}">
+                                {$ animal.latest_sighting.location.name $}
+                            </a>
+                        </div>
+                    </div>
+                    <div class="time-div">
+                        <p class="time" ng-if="animal.latest_sighting !== null">
+                            {$ animal.latest_sighting.time $}
+                        </p>
+                        <div ng-if="animal.latest_sighting === null">
+                            No sightings yet!
+                        </div>
+                    </div>
                 </div>
             </nav>
 
