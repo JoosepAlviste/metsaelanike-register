@@ -7,6 +7,10 @@ var app = angular.module('animalsApp', ['ngRoute'])
         $locationProvider
             .hashPrefix('');
     }])
+    .config(['$httpProvider', function ($httpProvider) {
+        $httpProvider.defaults.xsrfCookieName = 'csrftoken';
+        $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+    }])
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider
             .when('/animals', {
@@ -15,11 +19,11 @@ var app = angular.module('animalsApp', ['ngRoute'])
                 activeLink: 'animals'
             })
             .when('/animals/:id', {
-                templateUrl: '/animals/templates/one_animal',
+                templateUrl: '/animals/templates/one_animal/',
                 controller: 'OneAnimalController'
             })
             .when('/animals/:id/edit', {
-                templateUrl: '/animals/templates/edit',
+                templateUrl: '/animals/templates/edit/',
                 controller: 'AnimalEditController'
             })
             .when('/species', {
@@ -28,7 +32,7 @@ var app = angular.module('animalsApp', ['ngRoute'])
                 activeLink: 'species'
             })
             .when('/species/:id', {
-                templateUrl: '/animals/templates/one_species',
+                templateUrl: '/animals/templates/one_species/',
                 controller: 'OneSpeciesController'
             })
             .when('/locations', {
@@ -37,7 +41,7 @@ var app = angular.module('animalsApp', ['ngRoute'])
                 activeLink: 'locations'
             })
             .when('/locations/:id', {
-                templateUrl: '/animals/templates/one_location',
+                templateUrl: '/animals/templates/one_location/',
                 controller: 'OneLocationController'
             })
             .when('/search', {
@@ -87,13 +91,13 @@ app.controller('OneAnimalController', function ($scope, $http, $routeParams) {
     $scope.init = function () {
         $http({
             method: 'GET',
-            url: '/api/animals/' + $routeParams.id
+            url: '/api/animals/' + $routeParams.id + '/'
         }).then(function (data) {
             $scope.animal = data.data;
         });
          $http({
             method: 'GET',
-            url: '/api/animals/' + $routeParams.id + '/sightings'
+            url: '/api/animals/' + $routeParams.id + '/sightings/'
         }).then(function (data) {
             $scope.sightings = data.data;
         });
@@ -134,14 +138,14 @@ app.controller('OneSpeciesController', function ($scope, $http, $routeParams) {
     $scope.init = function () {
         $http({
             method: 'GET',
-            url: '/api/animals/species/' + $routeParams.id
+            url: '/api/animals/species/' + $routeParams.id + '/'
         }).then(function (data) {
             $scope.species = data.data;
         });
 
         $http({
             method: 'GET',
-            url: '/api/animals/species/' + $routeParams.id + '/animals'
+            url: '/api/animals/species/' + $routeParams.id + '/animals/'
         }).then(function (data) {
             $scope.speciesAnimals = data.data;
         });
@@ -162,7 +166,7 @@ app.controller('LocationListController', function ($scope, $http) {
     $scope.init = function () {
         $http({
             method: 'GET',
-            url: '/api/locations'
+            url: '/api/locations/'
         }).then(function (data) {
             $scope.locations = data.data;
         });
@@ -180,7 +184,7 @@ app.controller('OneLocationController', function ($scope, $http, $routeParams) {
     $scope.init = function () {
         $http({
             method: 'GET',
-            url: '/api/locations/' + $routeParams.id
+            url: '/api/locations/' + $routeParams.id + '/'
         }).then(function (data) {
             $scope.location = data.data;
             $scope.locationSightings = data.data.sightings;
@@ -203,20 +207,28 @@ app.controller('AnimalEditController', function($scope, $http, $routeParams) {
     $scope.init = function () {
         $http({
             method: 'GET',
-            url: '/api/animals/' + $routeParams.id
+            url: '/api/animals/' + $routeParams.id + '/'
         }).then(function (data) {
             $scope.animal = data.data;
         });
          $http({
             method: 'GET',
-            url: '/api/animals/' + $routeParams.id + '/sightings'
+            url: '/api/animals/' + $routeParams.id + '/sightings/'
         }).then(function (data) {
             $scope.sightings = data.data;
         });
     };
 
     $scope.saveAnimal = function () {
-
+        $http({
+            method: 'PUT',
+            url: '/api/animals/' + $routeParams.id + '/',
+            data: {
+                'name': $scope.animal.name
+            }
+        }).then(function (data) {
+            console.log(data);
+        });
     };
 
     $scope.deleteAnimal = function () {
