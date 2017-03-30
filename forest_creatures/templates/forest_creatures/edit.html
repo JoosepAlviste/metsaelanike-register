@@ -50,36 +50,59 @@
                             <label class="label">Location</label>
                             <p class="control">
                                 <md-autocomplete
-                                    md-no-cache="AnimalEditController.noCache"
-                                    md-selected-item="AnimalEditController.selectedItemLocationList[index]"
-                                    md-search-text-change="AnimalEditController.searchTextChangeLocation(AnimalEditController.searchTextLocationList[index])"
-                                    md-search-text="AnimalEditController.searchTextLocationList[index]"
-                                    md-selected-item-change="AnimalEditController.selectedItemChangeLocation(item, index)"
-                                    md-items="item in AnimalEditController.querySearchLocation(AnimalEditController.searchTextLocationList[index])"
-                                    md-item-text="item.display"
-                                    md-min-length="0"
-                                    placeholder="Pick a location or add new!">
-                                <md-item-template>
+                                        ng-class="{ 'is-danger': hasErrors('sightings', index, 'location_id') }"
+                                        md-no-cache="AnimalEditController.noCache"
+                                        md-selected-item="AnimalEditController.selectedItemLocationList[index]"
+                                        md-search-text-change="AnimalEditController.searchTextChangeLocation(AnimalEditController.searchTextLocationList[index])"
+                                        md-search-text="AnimalEditController.searchTextLocationList[index]"
+                                        md-selected-item-change="AnimalEditController.selectedItemChangeLocation(item, index)"
+                                        md-items="item in AnimalEditController.querySearchLocation(AnimalEditController.searchTextLocationList[index])"
+                                        md-item-text="item.display"
+                                        md-min-length="0"
+                                        placeholder="Pick a location or add new!">
+                                    <md-item-template>
                                     <span md-highlight-text="AnimalEditController.searchTextLocationList[index]"
                                           md-highlight-flags="^i">{$ item.display $}</span>
-                                </md-item-template>
-                                <md-not-found>
-                                    <a ng-click="AnimalEditController.createNewLocation(AnimalEditController.searchTextLocationList[index])">
-                                        No species matching "{$ AnimalEditController.searchTextLocationList[index] $}" were found.
-                                        Create a new one!
-                                    </a>
-                                </md-not-found>
-                            </md-autocomplete>
+                                    </md-item-template>
+                                    <md-not-found>
+                                        <a ng-click="AnimalEditController.createNewLocation(AnimalEditController.searchTextLocationList[index])">
+                                            No species matching "{$ AnimalEditController.searchTextLocationList[index]
+                                            $}" were found.
+                                            Create a new one!
+                                        </a>
+                                    </md-not-found>
+                                </md-autocomplete>
+                            </p>
+                            <p class="help is-danger" ng-if="hasErrors('sightings', index, 'location_id')">
+                                {$ getError('sightings', index, 'location_id') $}
                             </p>
                         </div>
                         <div class="field">
                             <label class="label">Time</label>
-                            <p class="control">
-                                <input class="input" type="text" value="{$ sighting.time $}" ng-model="sightings[index].time">
+                            <p class="control"
+                               ng-class="{ 'has-icon has-icon-right': hasErrors('sightings', index, 'time') }">
+                                <input class="input"
+                                       ng-class="{ 'is-danger': hasErrors('sightings', index, 'time') }"
+                                       type="text"
+                                       value="{$ sighting.time $}"
+                                       ng-model="sightings[index].time"
+                                       ng-change="clearErrors('sightings', index, 'time')">
+                                <span class="icon is-small" ng-if="hasErrors('sightings', index, 'time')">
+                                    <i class="fa fa-warning"></i>
+                                </span>
+                            </p>
+                            <p class="help is-danger" ng-if="hasErrors('sightings', index, 'time')">
+                                {$ getError('sightings', index, 'time') $}
                             </p>
                         </div>
                     </form>
                 </div>
+<<<<<<< HEAD
+=======
+                <div class="sighting add-sighting">
+                    <button class="button add-sighting-btn" ng-click="addSightingInput()">Add sighting</button>
+                </div>
+>>>>>>> 03acdb245a0d72d7754f21f8e09ed4dcdf37d3c9
             </div>
             <div class="form-container submit-container">
                 <button type="submit" class="button is-primary" ng-click="saveEditedAnimal()">Save</button>

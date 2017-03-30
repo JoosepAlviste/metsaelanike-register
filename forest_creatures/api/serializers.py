@@ -10,7 +10,7 @@ class AnimalSightingSerializer(serializers.ModelSerializer):
     location = LocationWithoutSightingSerializer(read_only=True)
     time = serializers.DateTimeField(required=True, format='%H:%M %d.%m.%Y', input_formats=['%H:%M %d.%m.%Y'])
     location_id = serializers.PrimaryKeyRelatedField(
-        queryset=Location.objects.all(), source='locations', write_only=True, required=False)
+        queryset=Location.objects.all(), source='locations', write_only=True, required=True)
     id = serializers.IntegerField(required=False)
 
     class Meta:
@@ -40,6 +40,7 @@ class AnimalSerializer(serializers.ModelSerializer):
         instance.name = validated_data.get('name', instance.name)
         instance.species = validated_data.get('species', instance.species)
 
+        handled_sightings = []
         for request_sighting in validated_data.get('sightings'):
             if request_sighting.get('id', None) is None:
                 # Create a new sighting
@@ -55,6 +56,13 @@ class AnimalSerializer(serializers.ModelSerializer):
                 sighting.time = request_sighting['time']
                 sighting.location = request_sighting['locations']
                 sighting.save()
+                handled_sightings.append(request_sighting['id'])
+
+        for sighting in instance.sightings.all():
+            if sighting.id in handled_sightings:
+                handled_sightings.remove(sighting.id)
+            else:
+                sighting.delete()
 
         instance.save()
         return instance

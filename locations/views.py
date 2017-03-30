@@ -5,7 +5,7 @@ from locations.models import Location
 from locations.serializers import LocationSerializer, LocationWithSightingsSerializer
 
 
-class LocationList(generics.ListAPIView):
+class LocationList(generics.ListCreateAPIView):
 
     queryset = Location.objects.all()
     serializer_class = LocationSerializer
