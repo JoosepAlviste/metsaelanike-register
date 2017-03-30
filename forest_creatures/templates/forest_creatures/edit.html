@@ -85,8 +85,7 @@
                                        ng-class="{ 'is-danger': hasErrors('sightings', index, 'time') }"
                                        type="text"
                                        value="{$ sighting.time $}"
-                                       ng-model="sightings[index].time"
-                                       ng-change="clearErrors('sightings', index, 'time')">
+                                       ng-model="sightings[index].time">
                                 <span class="icon is-small" ng-if="hasErrors('sightings', index, 'time')">
                                     <i class="fa fa-warning"></i>
                                 </span>
@@ -96,6 +95,9 @@
                             </p>
                         </div>
                     </form>
+                </div>
+                <div class="sighting add-sighting">
+                    <button class="button add-sighting-btn" ng-click="addSightingInput()">Add sighting</button>
                 </div>
             </div>
             <div class="form-container submit-container">

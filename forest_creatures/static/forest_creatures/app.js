@@ -351,12 +351,20 @@ app.controller('AnimalEditController', function ($scope, $http, $q, $routeParams
     $scope.saveEditedAnimal = function () {
         var $sightingsInfo = [];
         angular.forEach($scope.sightings, function (entry, key) {
-            $sightingsInfo.push({
-                'id': entry.id,
-                'location_id': entry.location.id,
-                'time': entry.time
-            });
+            if (typeof entry.id === 'undefined') {
+                $sightingsInfo.push({
+                    'location_id': entry.location.id,
+                    'time': entry.time
+                });
+            } else {
+                $sightingsInfo.push({
+                    'id': entry.id,
+                    'location_id': entry.location.id,
+                    'time': entry.time
+                });
+            }
         });
+        console.log($sightingsInfo);
         $http({
             method: 'PUT',
             url: '/api/animals/' + $routeParams.id + '/',
