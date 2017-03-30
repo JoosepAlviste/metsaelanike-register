@@ -393,7 +393,6 @@ app.controller('AnimalEditController', function ($scope, $http, $q, $routeParams
             location: {},
             "new": true
         });
-        console.log($scope.sightings);
         $timeout(function() {
             document.body.scrollTop = document.body.scrollHeight;
         }, 0, false);
@@ -404,7 +403,6 @@ app.controller('AnimalEditController', function ($scope, $http, $q, $routeParams
     };
 
     $scope.hasErrors = function (field, index, listField) {
-        console.log(field);
         var hasFieldError = $scope.errors.hasOwnProperty(field);
 
         if (hasFieldError && typeof index !== 'undefined') {

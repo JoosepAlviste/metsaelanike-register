@@ -12,8 +12,9 @@
                         <a class="link" ng-href="#/animals/{$ animal.id $}">
                             <b>{$ animal.name $}&nbsp;</b>
                         </a>
+                        ({$ animal.species.name $})
                         <div ng-if="animal.latest_sighting !== null">
-                            at
+                            &nbsp;at
                             <a ng-href="#/locations/{$ animal.latest_sighting.location.id $}">
                                 {$ animal.latest_sighting.location.name $}
                             </a>
