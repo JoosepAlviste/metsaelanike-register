@@ -62,7 +62,7 @@ class Search(APIView):
 
         keyword = request.query_params.get('q', None)
         if keyword is not None:
-            animals = Animal.objects.filter(Q(name__icontains=keyword) | Q(species__name__icontains=keyword))
+            animals = Animal.objects.filter(name__icontains=keyword)
             locations = Location.objects.filter(name__icontains=keyword)
             species = Species.objects.filter(name__icontains=keyword)
 
