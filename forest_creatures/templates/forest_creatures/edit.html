@@ -7,14 +7,26 @@
                 <form id="edit-form">
                     <div class="field">
                         <label class="label">Name</label>
-                        <p class="control">
-                            <input class="input" type="text" value="{$ animal.name $}" ng-model="animal.name">
+                        <p class="control" ng-class="{ 'has-icon has-icon-right': hasErrors('name') }">
+                            <input class="input"
+                                   ng-class="{ 'is-danger': hasErrors('name') }"
+                                   type="text"
+                                   value="{$ animal.name $}"
+                                   ng-model="animal.name"
+                                   ng-change="clearErrors('name')">
+                            <span class="icon is-small" ng-if="hasErrors('name')">
+                                <i class="fa fa-warning"></i>
+                            </span>
+                        </p>
+                        <p class="help is-danger" ng-if="hasErrors('name')">
+                            {$ getError('name') $}
                         </p>
                     </div>
                     <div class="field">
                         <label class="label">Species</label>
                         <p class="control">
                             <md-autocomplete
+                                    ng-class="{ 'is-danger': hasErrors('species_id') }"
                                     md-no-cache="AnimalEditController.noCache"
                                     md-selected-item="AnimalEditController.selectedItem"
                                     md-search-text-change="AnimalEditController.searchTextChange(AnimalEditController.searchText)"
@@ -35,6 +47,9 @@
                                     </a>
                                 </md-not-found>
                             </md-autocomplete>
+                        </p>
+                        <p class="help is-danger" ng-if="hasErrors('species_id')">
+                            {$ getError('species_id') $}
                         </p>
                     </div>
                 </form>

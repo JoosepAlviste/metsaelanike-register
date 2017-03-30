@@ -397,6 +397,7 @@ app.controller('AnimalEditController', function ($scope, $http, $q, $routeParams
     };
 
     $scope.hasErrors = function (field, index, listField) {
+        console.log($scope.errors);
         var hasFieldError = $scope.errors.hasOwnProperty(field);
 
         if (hasFieldError && typeof index !== 'undefined') {
