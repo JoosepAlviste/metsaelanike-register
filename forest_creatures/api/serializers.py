@@ -50,6 +50,7 @@ class AnimalSerializer(serializers.ModelSerializer):
                     animal_id=instance.id
                 )
                 sighting.save()
+                handled_sightings.append(sighting.id)
             else:
                 # Get an existing sighting and set its stuffs
                 sighting = AnimalSighting.objects.filter(id=request_sighting['id']).first()

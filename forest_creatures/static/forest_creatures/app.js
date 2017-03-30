@@ -351,11 +351,18 @@ app.controller('AnimalEditController', function ($scope, $http, $q, $routeParams
     $scope.saveEditedAnimal = function () {
         var $sightingsInfo = [];
         angular.forEach($scope.sightings, function (entry, key) {
-            $sightingsInfo.push({
-                'id': entry.id,
-                'location_id': entry.location.id,
-                'time': entry.time
-            });
+            if (typeof entry.id === 'undefined') {
+                $sightingsInfo.push({
+                    'location_id': entry.location.id,
+                    'time': entry.time
+                });
+            } else {
+                $sightingsInfo.push({
+                    'id': entry.id,
+                    'location_id': entry.location.id,
+                    'time': entry.time
+                });
+            }
         });
         $http({
             method: 'PUT',
@@ -401,8 +408,12 @@ app.controller('AnimalEditController', function ($scope, $http, $q, $routeParams
         var hasFieldError = $scope.errors.hasOwnProperty(field);
 
         if (hasFieldError && typeof index !== 'undefined') {
-            hasFieldError = $scope.errors[field][index].hasOwnProperty(listField)
-                && $scope.errors[field][index][listField].length > 0;
+            if ($scope.errors[field].length >= index) {
+                hasFieldError = $scope.errors[field][index].hasOwnProperty(listField)
+                    && $scope.errors[field][index][listField].length > 0;
+            } else {
+                hasFieldError = false;
+            }
         } else if (hasFieldError) {
             hasFieldError = $scope[field].length > 0;
         }
