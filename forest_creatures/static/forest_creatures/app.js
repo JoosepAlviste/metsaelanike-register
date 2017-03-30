@@ -210,7 +210,7 @@ app.controller('SearchController', function ($scope, $http) {
 
 });
 
-app.controller('AnimalEditController', function ($scope, $http, $q, $routeParams, $location) {
+app.controller('AnimalEditController', function ($scope, $http, $q, $routeParams, $location, $timeout) {
 
     var $self = this;
 
@@ -377,8 +377,17 @@ app.controller('AnimalEditController', function ($scope, $http, $q, $routeParams
 
     $scope.addSightingInput = function () {
         $scope.sightings.push({
-            location: {}
+            location: {},
+            "new": true
         });
+        console.log($scope.sightings);
+        $timeout(function() {
+            document.body.scrollTop = document.body.scrollHeight;
+        }, 0, false);
+    };
+
+    $scope.deleteSighting = function (index) {
+        $scope.sightings.splice(index, 1);
     };
 
     $scope.init();

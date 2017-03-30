@@ -39,10 +39,12 @@
                     </div>
                 </form>
             </div>
-            <div class="form-container sightings-container">
+
+            <div class="form-container sightings-container" id="sightingsScroller">
                 <hr>
+                <div class="sighting add-sighting"><button class="button add-sighting-btn" ng-click="addSightingInput()">Add sighting</button></div>
                 <div class="sighting" ng-repeat="(index, sighting) in sightings">
-                    <h3 class="title is-4">Sighting #{$ index + 1 $}</h3>
+                    <h3 class="title is-4"><button class="button delete-sighting-btn" ng-show="sighting.new" ng-click="deleteSighting(index)">-</button>Sighting #{$ index + 1 $}</h3>
                     <form>
                         <div class="field">
                             <label class="label">Location</label>
@@ -78,7 +80,6 @@
                         </div>
                     </form>
                 </div>
-                <div class="sighting add-sighting"><button class="button add-sighting-btn" ng-click="addSightingInput()">Add sighting</button></div>
             </div>
             <div class="form-container submit-container">
                 <button type="submit" class="button is-primary" ng-click="saveEditedAnimal()">Save</button>
