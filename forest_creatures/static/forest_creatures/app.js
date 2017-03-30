@@ -216,6 +216,7 @@ app.controller('AnimalEditController', function ($scope, $http, $q, $routeParams
 
     $scope.sightings = [];
     $scope.animal = {};
+    $scope.errors = {};
 
     $self.simulateQuery = true;
     $self.species = [];
@@ -238,8 +239,10 @@ app.controller('AnimalEditController', function ($scope, $http, $q, $routeParams
         }
     };
     $self.selectedItemChangeLocation = function (item, index) {
-        $scope.sightings[index].location.id = item.value;
-        $scope.sightings[index].location.name = item.display;
+        if (typeof item !== 'undefined') {
+            $scope.sightings[index].location.id = item.value;
+            $scope.sightings[index].location.name = item.display;
+        }
     };
 
     $self.querySearch = function (keyword) {
@@ -363,6 +366,8 @@ app.controller('AnimalEditController', function ($scope, $http, $q, $routeParams
             }
         }).then(function (data) {
             $location.path('/animals/' + $routeParams.id + '/');
+        }).catch(function (error) {
+            $scope.errors = error.data;
         });
     };
 
@@ -379,6 +384,40 @@ app.controller('AnimalEditController', function ($scope, $http, $q, $routeParams
         $scope.sightings.push({
             location: {}
         });
+    };
+
+    $scope.hasErrors = function (field, index, listField) {
+        var hasFieldError = $scope.errors.hasOwnProperty(field);
+
+        if (hasFieldError && typeof index !== 'undefined') {
+            hasFieldError = $scope.errors[field][index].hasOwnProperty(listField)
+                && $scope.errors[field][index][listField].length > 0;
+        } else if (hasFieldError) {
+            hasFieldError = $scope[field].length > 0;
+        }
+
+        return hasFieldError;
+    };
+
+    $scope.getError = function (field, index, listField) {
+
+        if ($scope.hasErrors(field, index, listField)) {
+            if (typeof index !== 'undefined') {
+                return $scope.errors[field][index][listField][0];
+            }
+            return $scope.errors[field][0];
+        }
+        return '';
+    };
+
+    $scope.clearErrors = function (field, index, listField) {
+        console.log($scope.errors);
+        if (typeof index !== 'undefined') {
+            $scope.errors[field][index][listField] = [];
+        } else {
+            $scope.errors[field] = [];
+        }
+        console.log($scope.errors);
     };
 
     $scope.init();
