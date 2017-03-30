@@ -210,6 +210,7 @@ app.controller('SearchController', function ($scope, $http) {
 
 });
 
+
 app.controller('AnimalEditController', function ($scope, $http, $q, $routeParams, $location) {
 
     var $self = this;
