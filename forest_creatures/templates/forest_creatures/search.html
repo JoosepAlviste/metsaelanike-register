@@ -1,6 +1,8 @@
 <div class="full-height-section header">
     <div class="search-container">
-        <input class="search-input" type="text" id="search-input" name="keyword"
-               placeholder="Write and press Enter..." autocomplete="off" autofocus>
+        <form ng-submit="submit()">
+            <input class="search-input" type="text" id="search-input" name="keyword"
+               placeholder="Write and press Enter..." autocomplete="off" autofocus ng-model="keyword">
+        </form>
     </div>
 </div>

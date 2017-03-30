@@ -45,3 +45,7 @@ def edit_template(request):
 
 def add_template(request):
     return render(request, 'forest_creatures/add.html')
+
+
+def search_results_template(request):
+    return render(request, 'forest_creatures/search_results.html')

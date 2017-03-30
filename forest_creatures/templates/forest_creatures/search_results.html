@@ -1,0 +1,54 @@
+<section class="section">
+    <div class="container is-fluid columns-container">
+        <div class="column is-half is-offset-one-quarter">
+
+            <h1 class="title is-1">Search results for {$ keyword $}</h1>
+            <h2 class="title is-3" ng-show="!species.length && !animals.length && !locations.length">No results found!</h2>
+            <h2 class="title is-3 searchTitle" ng-show="animals.length > 0">Animals</h2>
+            <article class="media" ng-repeat="animal in animals">
+                <div class="media-content">
+                    <div class="content">
+                        <div class="nameSpecies">
+                            <a class="link" ng-href="#/animals/{$ animal.id $}">
+                                <b>{$ animal.name $}&nbsp;</b>
+                            </a>
+                            <a class="link" ng-href="#/species/{$ animal.species.id $}">({$ animal.species.name $})</a>
+                        </div>
+                        <div ng-if="animal.latest_sighting !== null">
+                            at
+                            <a ng-href="#/locations/{$ animal.latest_sighting.location.id $}">
+                                {$ animal.latest_sighting.location.name $}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <h2 class="title is-3 searchTitle" ng-show="species.length > 0">Species</h2>
+            <article class="media" ng-repeat="specie in species">
+                <div class="media-content">
+                    <div class="content">
+                        <div class="nameSpecies">
+                            <a class="link" ng-href="#/species/{$ specie.id $}">
+                                <b>{$ specie.name $}&nbsp;</b>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <h2 class="title is-3 searchTitle" ng-show="locations.length > 0">Locations</h2>
+            <article class="media" ng-repeat="location in locations">
+                <div class="media-content">
+                    <div class="content">
+                        <div class="nameSpecies">
+                            <a class="link" ng-href="#/locations/{$ location.id $}">
+                                <b>{$ location.name $}&nbsp;</b>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </div>
+</section>

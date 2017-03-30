@@ -60,6 +60,11 @@ var app = angular.module('animalsApp', ['ngRoute', 'ngMaterial'])
                 controller: 'SearchController',
                 activeLink: 'search'
             })
+            .when('/search/:param', {
+                templateUrl: '/animals/templates/search_results/',
+                controller: 'SearchResultsController',
+                activeLink: 'search'
+            })
             .otherwise({
                 redirectTo: '/search'
             });
@@ -206,8 +211,35 @@ app.controller('OneLocationController', function ($scope, $http, $routeParams) {
 });
 
 
-app.controller('SearchController', function ($scope, $http) {
+app.controller('SearchController', function ($scope, $http, $location) {
 
+    $scope.submit = function () {
+        $location.path('/search/' + $scope.keyword);
+    };
+
+});
+
+
+app.controller('SearchResultsController', function ($scope, $http, $routeParams) {
+
+    $scope.keyword = $routeParams.param;
+    $scope.animals = [];
+    $scope.species = [];
+    $scope.locations = [];
+
+    $scope.init = function () {
+         $http({
+            method: 'GET',
+            url: '/api/animals/search/',
+            params: {q: $routeParams.param}
+        }).then(function (data) {
+            $scope.animals = data.data.animals;
+            $scope.species = data.data.species;
+            $scope.locations = data.data.locations;
+        });
+    };
+
+    $scope.init();
 });
 
 
