@@ -9,7 +9,7 @@
 
                 <div class="panel-block one-animal-container" ng-repeat="sighting in locationSightings">
                     <div class="animal-div">
-                        <a class="link" ng-href="#/animals/{$ sighting.animal.id $}">
+                        <a class="link" ng-href="#/animals/{$ sighting.animal.slug $}">
                             <b>{$ sighting.animal.name $}&nbsp;</b>
                         </a>
                         ({$ sighting.animal.species.name $})
