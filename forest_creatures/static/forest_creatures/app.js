@@ -29,7 +29,7 @@ var app = angular.module('animalsApp', ['ngRoute', 'ngMaterial'])
                 controller: 'OneAnimalController',
                 activeLink: 'animals'
             })
-            .when('/animals/:id/edit', {
+            .when('/animals/:slug/edit', {
                 templateUrl: '/animals/templates/edit/',
                 controller: 'AnimalEditController',
                 controllerAs: 'AnimalEditController',
@@ -357,7 +357,7 @@ app.controller('AnimalEditController', function ($scope, $http, $q, $routeParams
     $scope.init = function () {
         $http({
             method: 'GET',
-            url: '/api/animals/' + $routeParams.id + '/'
+            url: '/api/animals/' + $routeParams.slug + '/'
         }).then(function (data) {
             $scope.animal = data.data;
             $self.selectedItem = {
@@ -367,7 +367,7 @@ app.controller('AnimalEditController', function ($scope, $http, $q, $routeParams
         });
         $http({
             method: 'GET',
-            url: '/api/animals/' + $routeParams.id + '/sightings/'
+            url: '/api/animals/' + $routeParams.slug + '/sightings/'
         }).then(function (data) {
             $scope.sightings = data.data;
             angular.forEach($scope.sightings, function(entry, index) {
@@ -394,14 +394,14 @@ app.controller('AnimalEditController', function ($scope, $http, $q, $routeParams
         });
         $http({
             method: 'PUT',
-            url: '/api/animals/' + $routeParams.id + '/',
+            url: '/api/animals/' + $routeParams.slug + '/',
             data: {
                 'name': $scope.animal.name,
                 'species_id': $scope.animal.species.id,
                 'sightings': $sightingsInfo
             }
         }).then(function (data) {
-            $location.path('/animals/' + $routeParams.id + '/');
+            $location.path('/animals/' + $routeParams.slug + '/');
         }).catch(function (error) {
             $scope.errors = error.data;
         });
@@ -410,7 +410,7 @@ app.controller('AnimalEditController', function ($scope, $http, $q, $routeParams
     $scope.deleteAnimal = function () {
         $http({
             method: 'DELETE',
-            url: '/api/animals/' + $routeParams.id + '/'
+            url: '/api/animals/' + $routeParams.slug + '/'
         }).then(function (data) {
             $location.path('/animals');
         });
@@ -459,13 +459,11 @@ app.controller('AnimalEditController', function ($scope, $http, $q, $routeParams
     };
 
     $scope.clearErrors = function (field, index, listField) {
-        console.log($scope.errors);
         if (typeof index !== 'undefined') {
             $scope.errors[field][index][listField] = [];
         } else {
             $scope.errors[field] = [];
         }
-        console.log($scope.errors);
     };
 
     $scope.init();
