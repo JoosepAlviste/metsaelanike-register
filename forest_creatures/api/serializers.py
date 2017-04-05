@@ -51,9 +51,12 @@ class AnimalSerializer(serializers.ModelSerializer):
         return animal
 
     def update(self, instance, validated_data):
+        if instance.name != validated_data.get('name'):
+            instance.slug = get_animal_slug_from_name(validated_data.get('name', instance.name))
+
         instance.name = validated_data.get('name', instance.name)
         instance.species = validated_data.get('species', instance.species)
-        instance.slug = get_animal_slug_from_name(validated_data.get('name', instance.name))
+
 
         handled_sightings = []
         for request_sighting in validated_data.get('sightings'):
