@@ -113,7 +113,7 @@ app.controller('OneAnimalController', function ($scope, $http, $routeParams) {
         });
         $http({
             method: 'GET',
-            url: '/api/animals/' + $routeParams.slug + '/sightings/'
+            url: '/api/animals/' + $routeParams. + '/sightings/'
         }).then(function (data) {
             $scope.sightings = data.data;
         });
