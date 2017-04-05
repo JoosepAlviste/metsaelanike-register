@@ -537,7 +537,7 @@ app.controller('AnimalAddController', function ($scope, $http, $q, $location) {
             url: '/api/animals/',
             data: $scope.animal
         }).then(function (data) {
-            $location.path('/animals/' + data.data.id);
+            $location.path('/animals/' + data.data.slug);
         }).catch(function (error) {
             $scope.errors = error.data;
         });
