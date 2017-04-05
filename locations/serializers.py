@@ -15,7 +15,7 @@ class AnimalSerializerNoSightings(serializers.ModelSerializer):
 
     class Meta:
         model = Animal
-        fields = ('id', 'name', 'species')
+        fields = ('id', 'name', 'species', 'slug')
 
 
 class AnimalSightingNoLocationSerializer(serializers.ModelSerializer):

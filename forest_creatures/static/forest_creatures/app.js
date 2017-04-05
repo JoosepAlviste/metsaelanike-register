@@ -113,7 +113,7 @@ app.controller('OneAnimalController', function ($scope, $http, $routeParams) {
         });
         $http({
             method: 'GET',
-            url: '/api/animals/' + $routeParams. + '/sightings/'
+            url: '/api/animals/' + $routeParams.slug + '/sightings/'
         }).then(function (data) {
             $scope.sightings = data.data;
         });
@@ -173,7 +173,7 @@ app.controller('OneSpeciesController', function ($scope, $http, $routeParams) {
 
 app.controller('LocationListController', function ($scope, $http) {
 
-    $scope.locations = []
+    $scope.locations = [];
 
     $scope.init = function () {
         $http({

@@ -57,6 +57,8 @@ class Search(APIView):
     queryset = Animal.objects.all()
 
     def get(self, request, format=None):
+        print(request.query_params.get('q', None))
+
         animals = Animal.objects.all()
         locations = Location.objects.all()
         species = Species.objects.all()
