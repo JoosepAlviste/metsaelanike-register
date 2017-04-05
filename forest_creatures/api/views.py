@@ -22,6 +22,7 @@ class SpeciesDetail(generics.RetrieveAPIView):
 class AnimalDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Animal.objects.all()
     serializer_class = AnimalSerializer
+    lookup_field = 'slug'
 
 
 class AnimalList(generics.ListCreateAPIView):
@@ -40,8 +41,8 @@ class SightingList(generics.ListAPIView):
     serializer_class = AnimalSightingSerializer
 
     def get_queryset(self):
-        animal_id = self.kwargs['animal_id']
-        return AnimalSighting.objects.filter(animal_id=animal_id)
+        animal = Animal.objects.filter(slug=self.kwargs['slug']).first()
+        return AnimalSighting.objects.filter(animal_id=animal.id)
 
 
 class AnimalListBySpecies(generics.ListAPIView):

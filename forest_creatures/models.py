@@ -13,6 +13,7 @@ class Animal(models.Model):
 
     name = models.CharField(max_length=255)
     species = models.ForeignKey(Species, related_name='animals', on_delete=models.CASCADE)
+    slug = models.SlugField(unique=True, max_length=255)
 
     @property
     def latest_sighting(self):

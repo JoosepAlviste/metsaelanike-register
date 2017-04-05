@@ -9,7 +9,7 @@
                 </p>
                 <div class="panel-block one-animal-container" ng-repeat="(index, animal) in animals" ng-click="selectAnimal(index)">
                     <div class="animal-div">
-                        <a class="link" ng-href="#/animals/{$ animal.id $}">
+                        <a class="link" ng-href="#/animals/{$ animal.slug $}">
                             <b>{$ animal.name $}&nbsp;</b>
                         </a>
                         ({$ animal.species.name $})

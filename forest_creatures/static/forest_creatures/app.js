@@ -24,7 +24,7 @@ var app = angular.module('animalsApp', ['ngRoute', 'ngMaterial'])
                 controllerAs: 'AnimalAddController',
                 activeLink: 'animals'
             })
-            .when('/animals/:id', {
+            .when('/animals/:slug', {
                 templateUrl: '/animals/templates/one_animal/',
                 controller: 'OneAnimalController',
                 activeLink: 'animals'
@@ -107,13 +107,13 @@ app.controller('OneAnimalController', function ($scope, $http, $routeParams) {
     $scope.init = function () {
         $http({
             method: 'GET',
-            url: '/api/animals/' + $routeParams.id + '/'
+            url: '/api/animals/' + $routeParams.slug + '/'
         }).then(function (data) {
             $scope.animal = data.data;
         });
         $http({
             method: 'GET',
-            url: '/api/animals/' + $routeParams.id + '/sightings/'
+            url: '/api/animals/' + $routeParams.slug + '/sightings/'
         }).then(function (data) {
             $scope.sightings = data.data;
         });
@@ -165,10 +165,6 @@ app.controller('OneSpeciesController', function ($scope, $http, $routeParams) {
         }).then(function (data) {
             $scope.speciesAnimals = data.data;
         });
-    };
-
-    $scope.selectSpecies = function (index) {
-
     };
 
     $scope.init();

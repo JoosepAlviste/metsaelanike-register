@@ -1,5 +1,7 @@
 # Serializers define the API representation.
+import itertools
 from rest_framework import serializers
+from django.utils.text import slugify
 
 from forest_creatures.models import Animal, AnimalSighting, Species
 from locations.models import Location
@@ -29,16 +31,29 @@ class AnimalSerializer(serializers.ModelSerializer):
     species = SpeciesSerializer(read_only=True)
     sightings = AnimalSightingSerializer(many=True, write_only=True, required=False)
 
+    slug = serializers.CharField(read_only=True)
     name = serializers.CharField(required=True, max_length=255)
     species_id = serializers.PrimaryKeyRelatedField(queryset=Species.objects.all(), source='species', write_only=True)
 
     class Meta:
         model = Animal
-        fields = ('id', 'name', 'species', 'latest_sighting', 'species_id', 'sightings')
+        fields = ('id', 'name', 'slug', 'species', 'latest_sighting', 'species_id', 'sightings')
+
+    def create(self, validated_data):
+
+        animal = Animal(
+            name=validated_data.get('name'),
+            species=validated_data.get('species'),
+            slug=get_animal_slug_from_name(validated_data.get('name')),
+        )
+
+        animal.save()
+        return animal
 
     def update(self, instance, validated_data):
         instance.name = validated_data.get('name', instance.name)
         instance.species = validated_data.get('species', instance.species)
+        instance.slug = get_animal_slug_from_name(validated_data.get('name', instance.name))
 
         handled_sightings = []
         for request_sighting in validated_data.get('sightings'):
@@ -73,3 +88,14 @@ class SearchResultSerializer(serializers.Serializer):
     animals = AnimalSerializer(read_only=True, many=True)
     locations = LocationSerializer(read_only=True, many=True)
     species = SpeciesSerializer(read_only=True, many=True)
+
+
+def get_animal_slug_from_name(name):
+    slug = orig = slugify(name)
+
+    for x in itertools.count(1):
+        if not Animal.objects.filter(slug=slug).exists():
+            break
+        slug = '%s-%d' % (orig, x)
+
+    return slug
